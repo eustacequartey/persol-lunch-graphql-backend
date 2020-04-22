@@ -1,0 +1,14 @@
+type User {
+  id: ID! @id
+  name: String!
+  email: String! @unique
+  role: Role!
+  password: String!
+  hasChangedPassword: Boolean!
+  activated: Boolean!
+}
+
+type Role {
+  id: ID! @id
+  name: String!
+}

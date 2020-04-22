@@ -1,0 +1,37 @@
+type Query {
+  hello: String!
+  users: [User!]!
+}
+
+type Mutation {
+  createUser(data: createUserInput): User!
+  createAdmin(data: createUserInput): User!
+  login(email: String!, password: String!): AuthPayload
+  toggleUserActivation(id: ID!): User!
+  changeFirstPassword(newPassword: String!): Boolean!
+}
+
+type Role {
+  id: ID!
+  name: String!
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  role: Role!
+  password: String!
+  hasChangedPassword: Boolean!
+  activated: Boolean!
+}
+
+input createUserInput {
+  name: String!
+  email: String!
+}
+
+type AuthPayload {
+  token: String!
+  user: User!
+}
