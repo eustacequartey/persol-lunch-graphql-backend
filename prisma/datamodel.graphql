@@ -1,6 +1,8 @@
 type User {
   id: ID! @id
-  name: String!
+  firstName: String!
+  otherNames: String
+  lastName: String!
   email: String! @unique
   role: Role!
   password: String!
@@ -8,7 +10,7 @@ type User {
   activated: Boolean!
 }
 
-type Role {
-  id: ID! @id
-  name: String!
+enum Role {
+  ADMIN
+  NORMAL_USER
 }

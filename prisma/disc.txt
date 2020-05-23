@@ -1,0 +1,15 @@
+Models
+
+Food
+
+
+id
+name
+amount
+
+type: {
+    FoodType
+    id
+    name
+
+}
