@@ -1,17 +1,23 @@
 const { GraphQLServer } = require("graphql-yoga");
 const { prisma } = require("./generated/prisma-client");
-const { AdminAuthorization, SeedDbWithUsers } = require("./utils");
+const { Authorization } = require("./utils");
 const Mutation = require("./resolvers/Mutation");
 const resolvers = {
   Query: {
     hello: () => "Hello World",
     users: (_, args, ctx) => ctx.prisma.users(),
+    profile: async (_, args, ctx) => {
+      const {user} = await Authorization(ctx)
+      if (!user) throw new Error("You are not authorized")
+
+      return user
+    }
   },
   Mutation,
   User: {
-    role: (parent, args, ctx) => {
-      return ctx.prisma.user({ id: parent.id }).role();
-    },
+    // role: (parent, args, ctx) => {
+    //   return ctx.prisma.user({ id: parent.id }).role;
+    // },
   },
 };
 

@@ -3,58 +3,52 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { Authorization, APP_SECRET } = require("../utils");
 
-const createAdmin = (parent, args, context) => {
-  let { admin } = Authorization(context);
+const createAdmin = async (parent, args, context) => {
+  let {admin} = await Authorization(context);
   if (!admin) throw new Error("Authorized persons only");
 
-  const adminRole = context.db.roles.find((el) => {
-    return el.name === "admin";
-  });
 
-  const admin_user = {
+  const user = await context.prisma.createUser({
     ...args.data,
-    id: v4(),
-    role: adminRole.id,
-    password: "admin1234",
+    role: "ADMIN",
+    password: "admin12",
     hasChangedPassword: false,
     activated: true,
-  };
-
-  context.db.users = [...context.db.users, admin_user];
-  return admin_user;
+  })
+  return user;
 };
 
-const createUser = (_, args, context) => {
-  let { admin } = Authorization(context);
+const createUser = async (_, args, context) => {
+  let { admin } = await Authorization(context);
   if (!admin) throw new Error("Authorized persons only");
 
-  const normalUserRole = context.db.roles.find((el) => {
-    return el.name === "normal_user";
-  });
 
-  const new_user = {
-    ...args.data,
-    id: v4(),
-    role: normalUserRole.id,
-    password: "admin1234",
-    hasChangedPassword: false,
-    activated: false,
-  };
-
-  context.db.users = [...context.db.users, new_user];
+  const new_user = await context.prisma.createUser({
+      ...args.data,
+      role: "NORMAL_USER",
+      password: "admin12",
+      hasChangedPassword: false,
+      activated: false,
+    })
   return new_user;
 };
 
 const login = async (parent, args, context) => {
-  const user = context.db.users.find((el) => el.email === args.email);
-  if (!user || !user.activated) throw new Error("No such user found");
+
+  const user = await context.prisma.user({
+      email: args.email 
+  })
 
   let valid = false;
 
+  if (!user.activated) throw new Error("You are not an activated user")
+
   if (!user.hasChangedPassword) {
     valid = args.password === user.password;
+    console.log("has changed password is false")
   } else {
     valid = await bcrypt.compare(args.password, user.password);
+    console.log("has changed password is true")
   }
 
   if (!valid) throw new Error("Invalid Password");
@@ -67,21 +61,39 @@ const login = async (parent, args, context) => {
   };
 };
 
-const toggleUserActivation = (_, args, context) => {
-  let { admin } = Authorization(context);
+const toggleUserActivation = async (_, args, context) => {
+  let { admin } = await Authorization(context);
   if (!admin) throw new Error("Authorized persons only");
 
-  const user = context.db.users.find((el) => el.id === args.id);
+  const user = await context.prisma.user({
+    id: args.id
+  })
+
   if (!user) throw new Error("No such user found");
-  user.activated = !user.activated;
-  return user;
+  const activated = user.activated
+  
+  return await context.prisma.updateUser({
+    where: { id: user.id },
+    data: {
+      activated: !activated
+    }
+  })
 };
 
 const changeFirstPassword = async (_, args, context) => {
-  let { admin, user } = Authorization(context);
+  let { user } = await Authorization(context);
 
-  user.password = await bcrypt.hash(args.newPassword, 8);
-  user.hasChangedPassword = true;
+  const newPassword = await bcrypt.hash(args.newPassword, 8)
+
+   await context.prisma.updateUser({
+    where: {
+      id: user.id
+    },
+    data: {
+      password: newPassword,
+      hasChangedPassword: true
+    }
+  })
 
   return true;
 };

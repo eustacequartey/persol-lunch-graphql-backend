@@ -1,33 +1,39 @@
 const { v4 } = require("uuid");
 const jwt = require("jsonwebtoken");
-
 const APP_SECRET = "APP_SECRET";
 const ADMIN_APP_SECRET = "ADMIN_APP_SECRET";
 
-const Authorization = (context) => {
+
+const Authorization = async (context) => {
   const Authorization = context.request.get("Authorization");
   if (Authorization) {
-    const value = {
-      admin: false,
-    };
+
+    let admin = false
 
     const token = Authorization.replace("Bearer ", "");
     const { userId } = jwt.verify(token, APP_SECRET);
-    const user = context.db.users.find((el) => el.id === userId);
+    
+
+    const user = await context.prisma.user({
+      id: userId
+    })
+    
+
     if (!user) {
       throw new Error("Unauthorized Entry");
     }
-    const role = context.db.roles.find((el) => el.id === user.role);
-    if (role && role.name === "admin") value.admin = true;
+    if (user.role === "ADMIN") admin = true
 
-    return {
-      ...value,
-      user,
-    };
+    const Payload = {
+      admin,
+      user
+    }
+    return Payload
   }
 
   throw new Error("Not Authenticated");
 };
+
 
 async function SeedDbWithUsers(server, ctx) {
   const adminEmail = "esther@persol.net";

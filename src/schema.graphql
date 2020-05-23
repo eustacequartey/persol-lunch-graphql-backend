@@ -1,6 +1,7 @@
 type Query {
   hello: String!
   users: [User!]!
+  profile: User!
 }
 
 type Mutation {
@@ -11,14 +12,12 @@ type Mutation {
   changeFirstPassword(newPassword: String!): Boolean!
 }
 
-type Role {
-  id: ID!
-  name: String!
-}
 
 type User {
   id: ID!
-  name: String!
+  firstName: String!
+  otherNames: String
+  lastName: String!
   email: String!
   role: Role!
   password: String!
@@ -27,11 +26,18 @@ type User {
 }
 
 input createUserInput {
-  name: String!
+  firstName: String!
+  otherNames: String
+  lastName: String!
   email: String!
 }
 
 type AuthPayload {
   token: String!
   user: User!
+}
+
+enum Role {
+  ADMIN
+  NORMAL_USER
 }
