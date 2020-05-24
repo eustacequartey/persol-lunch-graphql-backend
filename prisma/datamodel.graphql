@@ -8,7 +8,23 @@ type User {
   password: String!
   hasChangedPassword: Boolean!
   activated: Boolean!
+  orders: [Order!]! @relation(name: "UserOrders", onDelete: CASCADE)
 }
+
+type Order {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  createdFor: DateTime!
+  createdBy: User! @relation(name: "UserOrders", onDelete: SET_NULL)
+  meal: Meal! @relation(name: "OrderMeal", link: "TABLE", onDelete: CASCADE)
+}
+
+type Meal {
+  id: ID! @id
+  order: Order! @relation(name: "OrderMeal")
+  # 
+}
+
 
 enum Role {
   ADMIN

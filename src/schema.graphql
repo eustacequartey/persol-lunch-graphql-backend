@@ -23,6 +23,22 @@ type User {
   password: String!
   hasChangedPassword: Boolean!
   activated: Boolean!
+  orders: [Order!]!
+}
+
+
+type Order {
+  id: ID!
+  createdAt: String!
+  createdFor: String!
+  createdBy: User!
+  meal: Meal!
+}
+
+
+type Meal {
+  id: ID!
+  order: Order!
 }
 
 input createUserInput {

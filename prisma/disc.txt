@@ -1,15 +1,28 @@
-Models
+Structure
 
-Food
-
-
-id
-name
-amount
-
-type: {
-    FoodType
+Order: {
     id
-    name
-
+    createdAt
+    createdFor
+    createdBy
+    Meal {
+        Main : {
+            id
+            nameS
+        }
+        Side: {
+            id
+            name
+        }
+        Protein: {
+            id
+            name
+        }
+    }
 }
+
+Identify a research problem and state it (1 minute).
+Provide a research title and justify why the problem must be solved (2 minutes).
+State the research aims and objectives [minimum of 3 objectives] (1 minute).
+State and explain the method you will use to conduct the study (1 minute).
+Provide the expected contribution of your study (1 minute).
