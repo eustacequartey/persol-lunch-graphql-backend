@@ -1,4 +1,5 @@
-endpoint: https://eu1.prisma.sh/eseku-d1febe/persol-lunch/dev
+#endpoint: ""
+endpoint: https://eu1.prisma.sh/eseku-d1febe/persolunch/dev
 datamodel: datamodel.graphql
 generate:
   - generator: javascript-client
