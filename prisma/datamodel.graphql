@@ -16,15 +16,35 @@ type Order {
   createdAt: DateTime! @createdAt
   createdFor: DateTime!
   createdBy: User! @relation(name: "UserOrders", onDelete: SET_NULL)
-  meal: Meal! @relation(name: "OrderMeal", link: "TABLE", onDelete: CASCADE)
+  # meal: Order! @relation(name: "OrderMeal", link: "TABLE", onDelete: CASCADE)
+  main: MainDish!
+  side: SideDish!
+  protein: Protein!
 }
 
-type Meal {
+# type Meal {
+#   id: ID! @id
+#   order: Order! @relation(name: "OrderMeal")
+
+# }
+
+type MainDish {
   id: ID! @id
-  order: Order! @relation(name: "OrderMeal")
-  # 
+  name: String!
+  orders: [Order!]!
 }
 
+type SideDish {
+  id: ID! @id
+  name: String!
+  orders: [Order!]!
+}
+
+type Protein {
+  id: ID! @id
+  name: String!
+  orders: [Order!]!
+}
 
 enum Role {
   ADMIN

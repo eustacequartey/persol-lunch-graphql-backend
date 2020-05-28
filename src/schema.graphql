@@ -2,6 +2,10 @@ type Query {
   hello: String!
   users: [User!]!
   profile: User!
+  maindishes: [MainDish!]!
+  sidedishes: [SideDish!]!
+  proteins: [Protein!]!
+  orders: [Order!]!
 }
 
 type Mutation {
@@ -10,8 +14,11 @@ type Mutation {
   login(email: String!, password: String!): AuthPayload
   toggleUserActivation(id: ID!): User!
   changeFirstPassword(newPassword: String!): Boolean!
+  createMainDish(name: String!): MainDish!
+  createSideDish(name: String!): SideDish!
+  createProtein(name: String!): Protein!
+  createOrder(data: createOrderInput!): Order!
 }
-
 
 type User {
   id: ID!
@@ -26,19 +33,41 @@ type User {
   orders: [Order!]!
 }
 
-
 type Order {
   id: ID!
   createdAt: String!
   createdFor: String!
   createdBy: User!
-  meal: Meal!
+  # meal: Meal!
+  main: MainDish!
+  side: SideDish!
+  protein: Protein!
 }
 
+# type Meal {
+#   id: ID!
+#   order: Order!
+# main: MainDish!
+# side: SideDish!
+# protein: Protein!
+# }
 
-type Meal {
+type MainDish {
   id: ID!
-  order: Order!
+  name: String!
+  orders: [Order!]!
+}
+
+type SideDish {
+  id: ID!
+  name: String!
+  orders: [Order!]!
+}
+
+type Protein {
+  id: ID!
+  name: String!
+  orders: [Order!]!
 }
 
 input createUserInput {
@@ -46,6 +75,13 @@ input createUserInput {
   otherNames: String
   lastName: String!
   email: String!
+}
+
+input createOrderInput {
+  createdFor: String!
+  main: ID!
+  side: ID!
+  protein: ID!
 }
 
 type AuthPayload {
