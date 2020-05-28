@@ -16,17 +16,10 @@ type Order {
   createdAt: DateTime! @createdAt
   createdFor: DateTime!
   createdBy: User! @relation(name: "UserOrders", onDelete: SET_NULL)
-  # meal: Order! @relation(name: "OrderMeal", link: "TABLE", onDelete: CASCADE)
   main: MainDish!
   side: SideDish!
-  protein: Protein!
+  protein: Protein
 }
-
-# type Meal {
-#   id: ID! @id
-#   order: Order! @relation(name: "OrderMeal")
-
-# }
 
 type MainDish {
   id: ID! @id
