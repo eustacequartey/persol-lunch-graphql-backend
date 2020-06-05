@@ -14,7 +14,7 @@ type Mutation {
   login(email: String!, password: String!): AuthPayload
   toggleUserActivation(id: ID!): User!
   changeFirstPassword(newPassword: String!): Boolean!
-  createMainDish(name: String!): MainDish!
+  createMainDish(name: String!, type: MainType!): MainDish!
   createSideDish(name: String!): SideDish!
   createProtein(name: String!): Protein!
   createOrder(data: createOrderInput!): Order!
@@ -46,6 +46,7 @@ type Order {
 type MainDish {
   id: ID!
   name: String!
+  type: MainType!
   orders: [Order!]!
 }
 
@@ -83,4 +84,10 @@ type AuthPayload {
 enum Role {
   ADMIN
   NORMAL_USER
+}
+
+enum MainType {
+  STEW
+  SOUP
+  HOTSAUCE
 }

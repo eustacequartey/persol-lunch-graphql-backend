@@ -34,6 +34,7 @@ scalar Long
 type MainDish {
   id: ID!
   name: String!
+  type: MainType!
   orders(where: OrderWhereInput, orderBy: OrderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Order!]
 }
 
@@ -46,6 +47,7 @@ type MainDishConnection {
 input MainDishCreateInput {
   id: ID
   name: String!
+  type: MainType!
   orders: OrderCreateManyWithoutMainInput
 }
 
@@ -57,6 +59,7 @@ input MainDishCreateOneWithoutOrdersInput {
 input MainDishCreateWithoutOrdersInput {
   id: ID
   name: String!
+  type: MainType!
 }
 
 type MainDishEdge {
@@ -69,11 +72,14 @@ enum MainDishOrderByInput {
   id_DESC
   name_ASC
   name_DESC
+  type_ASC
+  type_DESC
 }
 
 type MainDishPreviousValues {
   id: ID!
   name: String!
+  type: MainType!
 }
 
 type MainDishSubscriptionPayload {
@@ -96,11 +102,13 @@ input MainDishSubscriptionWhereInput {
 
 input MainDishUpdateInput {
   name: String
+  type: MainType
   orders: OrderUpdateManyWithoutMainInput
 }
 
 input MainDishUpdateManyMutationInput {
   name: String
+  type: MainType
 }
 
 input MainDishUpdateOneRequiredWithoutOrdersInput {
@@ -112,6 +120,7 @@ input MainDishUpdateOneRequiredWithoutOrdersInput {
 
 input MainDishUpdateWithoutOrdersDataInput {
   name: String
+  type: MainType
 }
 
 input MainDishUpsertWithoutOrdersInput {
@@ -148,6 +157,10 @@ input MainDishWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  type: MainType
+  type_not: MainType
+  type_in: [MainType!]
+  type_not_in: [MainType!]
   orders_every: OrderWhereInput
   orders_some: OrderWhereInput
   orders_none: OrderWhereInput
@@ -158,6 +171,12 @@ input MainDishWhereInput {
 
 input MainDishWhereUniqueInput {
   id: ID
+}
+
+enum MainType {
+  STEW
+  SOUP
+  HOTSAUCE
 }
 
 type Mutation {
@@ -210,7 +229,7 @@ type Order {
   createdBy: User!
   main: MainDish!
   side: SideDish!
-  protein: Protein!
+  protein: Protein
 }
 
 type OrderConnection {
@@ -225,7 +244,7 @@ input OrderCreateInput {
   createdBy: UserCreateOneWithoutOrdersInput!
   main: MainDishCreateOneWithoutOrdersInput!
   side: SideDishCreateOneWithoutOrdersInput!
-  protein: ProteinCreateOneWithoutOrdersInput!
+  protein: ProteinCreateOneWithoutOrdersInput
 }
 
 input OrderCreateManyWithoutCreatedByInput {
@@ -253,7 +272,7 @@ input OrderCreateWithoutCreatedByInput {
   createdFor: DateTime!
   main: MainDishCreateOneWithoutOrdersInput!
   side: SideDishCreateOneWithoutOrdersInput!
-  protein: ProteinCreateOneWithoutOrdersInput!
+  protein: ProteinCreateOneWithoutOrdersInput
 }
 
 input OrderCreateWithoutMainInput {
@@ -261,7 +280,7 @@ input OrderCreateWithoutMainInput {
   createdFor: DateTime!
   createdBy: UserCreateOneWithoutOrdersInput!
   side: SideDishCreateOneWithoutOrdersInput!
-  protein: ProteinCreateOneWithoutOrdersInput!
+  protein: ProteinCreateOneWithoutOrdersInput
 }
 
 input OrderCreateWithoutProteinInput {
@@ -277,7 +296,7 @@ input OrderCreateWithoutSideInput {
   createdFor: DateTime!
   createdBy: UserCreateOneWithoutOrdersInput!
   main: MainDishCreateOneWithoutOrdersInput!
-  protein: ProteinCreateOneWithoutOrdersInput!
+  protein: ProteinCreateOneWithoutOrdersInput
 }
 
 type OrderEdge {
@@ -359,7 +378,7 @@ input OrderUpdateInput {
   createdBy: UserUpdateOneRequiredWithoutOrdersInput
   main: MainDishUpdateOneRequiredWithoutOrdersInput
   side: SideDishUpdateOneRequiredWithoutOrdersInput
-  protein: ProteinUpdateOneRequiredWithoutOrdersInput
+  protein: ProteinUpdateOneWithoutOrdersInput
 }
 
 input OrderUpdateManyDataInput {
@@ -427,14 +446,14 @@ input OrderUpdateWithoutCreatedByDataInput {
   createdFor: DateTime
   main: MainDishUpdateOneRequiredWithoutOrdersInput
   side: SideDishUpdateOneRequiredWithoutOrdersInput
-  protein: ProteinUpdateOneRequiredWithoutOrdersInput
+  protein: ProteinUpdateOneWithoutOrdersInput
 }
 
 input OrderUpdateWithoutMainDataInput {
   createdFor: DateTime
   createdBy: UserUpdateOneRequiredWithoutOrdersInput
   side: SideDishUpdateOneRequiredWithoutOrdersInput
-  protein: ProteinUpdateOneRequiredWithoutOrdersInput
+  protein: ProteinUpdateOneWithoutOrdersInput
 }
 
 input OrderUpdateWithoutProteinDataInput {
@@ -448,7 +467,7 @@ input OrderUpdateWithoutSideDataInput {
   createdFor: DateTime
   createdBy: UserUpdateOneRequiredWithoutOrdersInput
   main: MainDishUpdateOneRequiredWithoutOrdersInput
-  protein: ProteinUpdateOneRequiredWithoutOrdersInput
+  protein: ProteinUpdateOneWithoutOrdersInput
 }
 
 input OrderUpdateWithWhereUniqueWithoutCreatedByInput {
@@ -618,10 +637,12 @@ input ProteinUpdateManyMutationInput {
   name: String
 }
 
-input ProteinUpdateOneRequiredWithoutOrdersInput {
+input ProteinUpdateOneWithoutOrdersInput {
   create: ProteinCreateWithoutOrdersInput
   update: ProteinUpdateWithoutOrdersDataInput
   upsert: ProteinUpsertWithoutOrdersInput
+  delete: Boolean
+  disconnect: Boolean
   connect: ProteinWhereUniqueInput
 }
 

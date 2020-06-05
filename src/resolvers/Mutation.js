@@ -102,6 +102,7 @@ const Mutation = {
 
     return await ctx.prisma.createMainDish({
       name: args.name,
+      type: args.type,
     });
   },
 

@@ -24,6 +24,7 @@ type Order {
 type MainDish {
   id: ID! @id
   name: String!
+  type: MainType!
   orders: [Order!]!
 }
 
@@ -42,4 +43,10 @@ type Protein {
 enum Role {
   ADMIN
   NORMAL_USER
+}
+
+enum MainType {
+  STEW
+  SOUP
+  HOTSAUCE
 }

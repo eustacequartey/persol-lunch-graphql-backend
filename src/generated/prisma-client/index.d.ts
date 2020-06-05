@@ -257,6 +257,8 @@ export interface ClientConstructor<T> {
  * Types
  */
 
+export type MainType = "STEW" | "SOUP" | "HOTSAUCE";
+
 export type Role = "ADMIN" | "NORMAL_USER";
 
 export type OrderOrderByInput =
@@ -271,7 +273,9 @@ export type MainDishOrderByInput =
   | "id_ASC"
   | "id_DESC"
   | "name_ASC"
-  | "name_DESC";
+  | "name_DESC"
+  | "type_ASC"
+  | "type_DESC";
 
 export type ProteinOrderByInput =
   | "id_ASC"
@@ -481,6 +485,10 @@ export interface MainDishWhereInput {
   name_not_starts_with?: Maybe<String>;
   name_ends_with?: Maybe<String>;
   name_not_ends_with?: Maybe<String>;
+  type?: Maybe<MainType>;
+  type_not?: Maybe<MainType>;
+  type_in?: Maybe<MainType[] | MainType>;
+  type_not_in?: Maybe<MainType[] | MainType>;
   orders_every?: Maybe<OrderWhereInput>;
   orders_some?: Maybe<OrderWhereInput>;
   orders_none?: Maybe<OrderWhereInput>;
@@ -583,6 +591,7 @@ export type UserWhereUniqueInput = AtLeastOne<{
 export interface MainDishCreateInput {
   id?: Maybe<ID_Input>;
   name: String;
+  type: MainType;
   orders?: Maybe<OrderCreateManyWithoutMainInput>;
 }
 
@@ -596,7 +605,7 @@ export interface OrderCreateWithoutMainInput {
   createdFor: DateTimeInput;
   createdBy: UserCreateOneWithoutOrdersInput;
   side: SideDishCreateOneWithoutOrdersInput;
-  protein: ProteinCreateOneWithoutOrdersInput;
+  protein?: Maybe<ProteinCreateOneWithoutOrdersInput>;
 }
 
 export interface UserCreateOneWithoutOrdersInput {
@@ -638,6 +647,7 @@ export interface ProteinCreateWithoutOrdersInput {
 
 export interface MainDishUpdateInput {
   name?: Maybe<String>;
+  type?: Maybe<MainType>;
   orders?: Maybe<OrderUpdateManyWithoutMainInput>;
 }
 
@@ -670,7 +680,7 @@ export interface OrderUpdateWithoutMainDataInput {
   createdFor?: Maybe<DateTimeInput>;
   createdBy?: Maybe<UserUpdateOneRequiredWithoutOrdersInput>;
   side?: Maybe<SideDishUpdateOneRequiredWithoutOrdersInput>;
-  protein?: Maybe<ProteinUpdateOneRequiredWithoutOrdersInput>;
+  protein?: Maybe<ProteinUpdateOneWithoutOrdersInput>;
 }
 
 export interface UserUpdateOneRequiredWithoutOrdersInput {
@@ -712,10 +722,12 @@ export interface SideDishUpsertWithoutOrdersInput {
   create: SideDishCreateWithoutOrdersInput;
 }
 
-export interface ProteinUpdateOneRequiredWithoutOrdersInput {
+export interface ProteinUpdateOneWithoutOrdersInput {
   create?: Maybe<ProteinCreateWithoutOrdersInput>;
   update?: Maybe<ProteinUpdateWithoutOrdersDataInput>;
   upsert?: Maybe<ProteinUpsertWithoutOrdersInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
   connect?: Maybe<ProteinWhereUniqueInput>;
 }
 
@@ -781,6 +793,7 @@ export interface OrderUpdateManyDataInput {
 
 export interface MainDishUpdateManyMutationInput {
   name?: Maybe<String>;
+  type?: Maybe<MainType>;
 }
 
 export interface OrderCreateInput {
@@ -789,7 +802,7 @@ export interface OrderCreateInput {
   createdBy: UserCreateOneWithoutOrdersInput;
   main: MainDishCreateOneWithoutOrdersInput;
   side: SideDishCreateOneWithoutOrdersInput;
-  protein: ProteinCreateOneWithoutOrdersInput;
+  protein?: Maybe<ProteinCreateOneWithoutOrdersInput>;
 }
 
 export interface MainDishCreateOneWithoutOrdersInput {
@@ -800,6 +813,7 @@ export interface MainDishCreateOneWithoutOrdersInput {
 export interface MainDishCreateWithoutOrdersInput {
   id?: Maybe<ID_Input>;
   name: String;
+  type: MainType;
 }
 
 export interface OrderUpdateInput {
@@ -807,7 +821,7 @@ export interface OrderUpdateInput {
   createdBy?: Maybe<UserUpdateOneRequiredWithoutOrdersInput>;
   main?: Maybe<MainDishUpdateOneRequiredWithoutOrdersInput>;
   side?: Maybe<SideDishUpdateOneRequiredWithoutOrdersInput>;
-  protein?: Maybe<ProteinUpdateOneRequiredWithoutOrdersInput>;
+  protein?: Maybe<ProteinUpdateOneWithoutOrdersInput>;
 }
 
 export interface MainDishUpdateOneRequiredWithoutOrdersInput {
@@ -819,6 +833,7 @@ export interface MainDishUpdateOneRequiredWithoutOrdersInput {
 
 export interface MainDishUpdateWithoutOrdersDataInput {
   name?: Maybe<String>;
+  type?: Maybe<MainType>;
 }
 
 export interface MainDishUpsertWithoutOrdersInput {
@@ -916,7 +931,7 @@ export interface OrderCreateWithoutSideInput {
   createdFor: DateTimeInput;
   createdBy: UserCreateOneWithoutOrdersInput;
   main: MainDishCreateOneWithoutOrdersInput;
-  protein: ProteinCreateOneWithoutOrdersInput;
+  protein?: Maybe<ProteinCreateOneWithoutOrdersInput>;
 }
 
 export interface SideDishUpdateInput {
@@ -953,7 +968,7 @@ export interface OrderUpdateWithoutSideDataInput {
   createdFor?: Maybe<DateTimeInput>;
   createdBy?: Maybe<UserUpdateOneRequiredWithoutOrdersInput>;
   main?: Maybe<MainDishUpdateOneRequiredWithoutOrdersInput>;
-  protein?: Maybe<ProteinUpdateOneRequiredWithoutOrdersInput>;
+  protein?: Maybe<ProteinUpdateOneWithoutOrdersInput>;
 }
 
 export interface OrderUpsertWithWhereUniqueWithoutSideInput {
@@ -991,7 +1006,7 @@ export interface OrderCreateWithoutCreatedByInput {
   createdFor: DateTimeInput;
   main: MainDishCreateOneWithoutOrdersInput;
   side: SideDishCreateOneWithoutOrdersInput;
-  protein: ProteinCreateOneWithoutOrdersInput;
+  protein?: Maybe<ProteinCreateOneWithoutOrdersInput>;
 }
 
 export interface UserUpdateInput {
@@ -1037,7 +1052,7 @@ export interface OrderUpdateWithoutCreatedByDataInput {
   createdFor?: Maybe<DateTimeInput>;
   main?: Maybe<MainDishUpdateOneRequiredWithoutOrdersInput>;
   side?: Maybe<SideDishUpdateOneRequiredWithoutOrdersInput>;
-  protein?: Maybe<ProteinUpdateOneRequiredWithoutOrdersInput>;
+  protein?: Maybe<ProteinUpdateOneWithoutOrdersInput>;
 }
 
 export interface OrderUpsertWithWhereUniqueWithoutCreatedByInput {
@@ -1127,11 +1142,13 @@ export interface NodeNode {
 export interface MainDish {
   id: ID_Output;
   name: String;
+  type: MainType;
 }
 
 export interface MainDishPromise extends Promise<MainDish>, Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
+  type: () => Promise<MainType>;
   orders: <T = FragmentableArray<Order>>(args?: {
     where?: OrderWhereInput;
     orderBy?: OrderOrderByInput;
@@ -1148,6 +1165,7 @@ export interface MainDishSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
+  type: () => Promise<AsyncIterator<MainType>>;
   orders: <T = Promise<AsyncIterator<OrderSubscription>>>(args?: {
     where?: OrderWhereInput;
     orderBy?: OrderOrderByInput;
@@ -1164,6 +1182,7 @@ export interface MainDishNullablePromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
+  type: () => Promise<MainType>;
   orders: <T = FragmentableArray<Order>>(args?: {
     where?: OrderWhereInput;
     orderBy?: OrderOrderByInput;
@@ -1737,6 +1756,7 @@ export interface MainDishSubscriptionPayloadSubscription
 export interface MainDishPreviousValues {
   id: ID_Output;
   name: String;
+  type: MainType;
 }
 
 export interface MainDishPreviousValuesPromise
@@ -1744,6 +1764,7 @@ export interface MainDishPreviousValuesPromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
+  type: () => Promise<MainType>;
 }
 
 export interface MainDishPreviousValuesSubscription
@@ -1751,6 +1772,7 @@ export interface MainDishPreviousValuesSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
+  type: () => Promise<AsyncIterator<MainType>>;
 }
 
 export interface OrderSubscriptionPayload {
@@ -2013,6 +2035,10 @@ export const models: Model[] = [
   },
   {
     name: "Role",
+    embedded: false
+  },
+  {
+    name: "MainType",
     embedded: false
   }
 ];
