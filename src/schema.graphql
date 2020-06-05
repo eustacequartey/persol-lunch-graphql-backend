@@ -53,7 +53,7 @@ type MainDish {
 type SideDish {
   id: ID!
   name: String!
-  type: SideType!!
+  type: SideType!
   orders: [Order!]!
 }
 
