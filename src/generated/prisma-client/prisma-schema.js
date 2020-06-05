@@ -568,6 +568,7 @@ type PageInfo {
 type Protein {
   id: ID!
   name: String!
+  type: ProteinType!
   orders(where: OrderWhereInput, orderBy: OrderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Order!]
 }
 
@@ -580,6 +581,7 @@ type ProteinConnection {
 input ProteinCreateInput {
   id: ID
   name: String!
+  type: ProteinType!
   orders: OrderCreateManyWithoutProteinInput
 }
 
@@ -591,6 +593,7 @@ input ProteinCreateOneWithoutOrdersInput {
 input ProteinCreateWithoutOrdersInput {
   id: ID
   name: String!
+  type: ProteinType!
 }
 
 type ProteinEdge {
@@ -603,11 +606,14 @@ enum ProteinOrderByInput {
   id_DESC
   name_ASC
   name_DESC
+  type_ASC
+  type_DESC
 }
 
 type ProteinPreviousValues {
   id: ID!
   name: String!
+  type: ProteinType!
 }
 
 type ProteinSubscriptionPayload {
@@ -628,13 +634,21 @@ input ProteinSubscriptionWhereInput {
   NOT: [ProteinSubscriptionWhereInput!]
 }
 
+enum ProteinType {
+  MEAT
+  FISH
+  MISCELLANEOUS
+}
+
 input ProteinUpdateInput {
   name: String
+  type: ProteinType
   orders: OrderUpdateManyWithoutProteinInput
 }
 
 input ProteinUpdateManyMutationInput {
   name: String
+  type: ProteinType
 }
 
 input ProteinUpdateOneWithoutOrdersInput {
@@ -648,6 +662,7 @@ input ProteinUpdateOneWithoutOrdersInput {
 
 input ProteinUpdateWithoutOrdersDataInput {
   name: String
+  type: ProteinType
 }
 
 input ProteinUpsertWithoutOrdersInput {
@@ -684,6 +699,10 @@ input ProteinWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  type: ProteinType
+  type_not: ProteinType
+  type_in: [ProteinType!]
+  type_not_in: [ProteinType!]
   orders_every: OrderWhereInput
   orders_some: OrderWhereInput
   orders_none: OrderWhereInput
@@ -723,6 +742,7 @@ enum Role {
 type SideDish {
   id: ID!
   name: String!
+  type: SideType!
   orders(where: OrderWhereInput, orderBy: OrderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Order!]
 }
 
@@ -735,6 +755,7 @@ type SideDishConnection {
 input SideDishCreateInput {
   id: ID
   name: String!
+  type: SideType!
   orders: OrderCreateManyWithoutSideInput
 }
 
@@ -746,6 +767,7 @@ input SideDishCreateOneWithoutOrdersInput {
 input SideDishCreateWithoutOrdersInput {
   id: ID
   name: String!
+  type: SideType!
 }
 
 type SideDishEdge {
@@ -758,11 +780,14 @@ enum SideDishOrderByInput {
   id_DESC
   name_ASC
   name_DESC
+  type_ASC
+  type_DESC
 }
 
 type SideDishPreviousValues {
   id: ID!
   name: String!
+  type: SideType!
 }
 
 type SideDishSubscriptionPayload {
@@ -785,11 +810,13 @@ input SideDishSubscriptionWhereInput {
 
 input SideDishUpdateInput {
   name: String
+  type: SideType
   orders: OrderUpdateManyWithoutSideInput
 }
 
 input SideDishUpdateManyMutationInput {
   name: String
+  type: SideType
 }
 
 input SideDishUpdateOneRequiredWithoutOrdersInput {
@@ -801,6 +828,7 @@ input SideDishUpdateOneRequiredWithoutOrdersInput {
 
 input SideDishUpdateWithoutOrdersDataInput {
   name: String
+  type: SideType
 }
 
 input SideDishUpsertWithoutOrdersInput {
@@ -837,6 +865,10 @@ input SideDishWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  type: SideType
+  type_not: SideType
+  type_in: [SideType!]
+  type_not_in: [SideType!]
   orders_every: OrderWhereInput
   orders_some: OrderWhereInput
   orders_none: OrderWhereInput
@@ -847,6 +879,11 @@ input SideDishWhereInput {
 
 input SideDishWhereUniqueInput {
   id: ID
+}
+
+enum SideType {
+  DUMPLING
+  RICE
 }
 
 type Subscription {

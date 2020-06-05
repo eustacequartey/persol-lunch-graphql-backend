@@ -261,6 +261,10 @@ export type MainType = "STEW" | "SOUP" | "HOTSAUCE";
 
 export type Role = "ADMIN" | "NORMAL_USER";
 
+export type SideType = "DUMPLING" | "RICE";
+
+export type ProteinType = "MEAT" | "FISH" | "MISCELLANEOUS";
+
 export type OrderOrderByInput =
   | "id_ASC"
   | "id_DESC"
@@ -281,13 +285,17 @@ export type ProteinOrderByInput =
   | "id_ASC"
   | "id_DESC"
   | "name_ASC"
-  | "name_DESC";
+  | "name_DESC"
+  | "type_ASC"
+  | "type_DESC";
 
 export type SideDishOrderByInput =
   | "id_ASC"
   | "id_DESC"
   | "name_ASC"
-  | "name_DESC";
+  | "name_DESC"
+  | "type_ASC"
+  | "type_DESC";
 
 export type UserOrderByInput =
   | "id_ASC"
@@ -526,6 +534,10 @@ export interface SideDishWhereInput {
   name_not_starts_with?: Maybe<String>;
   name_ends_with?: Maybe<String>;
   name_not_ends_with?: Maybe<String>;
+  type?: Maybe<SideType>;
+  type_not?: Maybe<SideType>;
+  type_in?: Maybe<SideType[] | SideType>;
+  type_not_in?: Maybe<SideType[] | SideType>;
   orders_every?: Maybe<OrderWhereInput>;
   orders_some?: Maybe<OrderWhereInput>;
   orders_none?: Maybe<OrderWhereInput>;
@@ -563,6 +575,10 @@ export interface ProteinWhereInput {
   name_not_starts_with?: Maybe<String>;
   name_ends_with?: Maybe<String>;
   name_not_ends_with?: Maybe<String>;
+  type?: Maybe<ProteinType>;
+  type_not?: Maybe<ProteinType>;
+  type_in?: Maybe<ProteinType[] | ProteinType>;
+  type_not_in?: Maybe<ProteinType[] | ProteinType>;
   orders_every?: Maybe<OrderWhereInput>;
   orders_some?: Maybe<OrderWhereInput>;
   orders_none?: Maybe<OrderWhereInput>;
@@ -633,6 +649,7 @@ export interface SideDishCreateOneWithoutOrdersInput {
 export interface SideDishCreateWithoutOrdersInput {
   id?: Maybe<ID_Input>;
   name: String;
+  type: SideType;
 }
 
 export interface ProteinCreateOneWithoutOrdersInput {
@@ -643,6 +660,7 @@ export interface ProteinCreateOneWithoutOrdersInput {
 export interface ProteinCreateWithoutOrdersInput {
   id?: Maybe<ID_Input>;
   name: String;
+  type: ProteinType;
 }
 
 export interface MainDishUpdateInput {
@@ -715,6 +733,7 @@ export interface SideDishUpdateOneRequiredWithoutOrdersInput {
 
 export interface SideDishUpdateWithoutOrdersDataInput {
   name?: Maybe<String>;
+  type?: Maybe<SideType>;
 }
 
 export interface SideDishUpsertWithoutOrdersInput {
@@ -733,6 +752,7 @@ export interface ProteinUpdateOneWithoutOrdersInput {
 
 export interface ProteinUpdateWithoutOrdersDataInput {
   name?: Maybe<String>;
+  type?: Maybe<ProteinType>;
 }
 
 export interface ProteinUpsertWithoutOrdersInput {
@@ -848,6 +868,7 @@ export interface OrderUpdateManyMutationInput {
 export interface ProteinCreateInput {
   id?: Maybe<ID_Input>;
   name: String;
+  type: ProteinType;
   orders?: Maybe<OrderCreateManyWithoutProteinInput>;
 }
 
@@ -868,6 +889,7 @@ export interface OrderCreateWithoutProteinInput {
 
 export interface ProteinUpdateInput {
   name?: Maybe<String>;
+  type?: Maybe<ProteinType>;
   orders?: Maybe<OrderUpdateManyWithoutProteinInput>;
 }
 
@@ -913,11 +935,13 @@ export interface OrderUpsertWithWhereUniqueWithoutProteinInput {
 
 export interface ProteinUpdateManyMutationInput {
   name?: Maybe<String>;
+  type?: Maybe<ProteinType>;
 }
 
 export interface SideDishCreateInput {
   id?: Maybe<ID_Input>;
   name: String;
+  type: SideType;
   orders?: Maybe<OrderCreateManyWithoutSideInput>;
 }
 
@@ -936,6 +960,7 @@ export interface OrderCreateWithoutSideInput {
 
 export interface SideDishUpdateInput {
   name?: Maybe<String>;
+  type?: Maybe<SideType>;
   orders?: Maybe<OrderUpdateManyWithoutSideInput>;
 }
 
@@ -979,6 +1004,7 @@ export interface OrderUpsertWithWhereUniqueWithoutSideInput {
 
 export interface SideDishUpdateManyMutationInput {
   name?: Maybe<String>;
+  type?: Maybe<SideType>;
 }
 
 export interface UserCreateInput {
@@ -1316,11 +1342,13 @@ export interface UserNullablePromise
 export interface SideDish {
   id: ID_Output;
   name: String;
+  type: SideType;
 }
 
 export interface SideDishPromise extends Promise<SideDish>, Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
+  type: () => Promise<SideType>;
   orders: <T = FragmentableArray<Order>>(args?: {
     where?: OrderWhereInput;
     orderBy?: OrderOrderByInput;
@@ -1337,6 +1365,7 @@ export interface SideDishSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
+  type: () => Promise<AsyncIterator<SideType>>;
   orders: <T = Promise<AsyncIterator<OrderSubscription>>>(args?: {
     where?: OrderWhereInput;
     orderBy?: OrderOrderByInput;
@@ -1353,6 +1382,7 @@ export interface SideDishNullablePromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
+  type: () => Promise<SideType>;
   orders: <T = FragmentableArray<Order>>(args?: {
     where?: OrderWhereInput;
     orderBy?: OrderOrderByInput;
@@ -1367,11 +1397,13 @@ export interface SideDishNullablePromise
 export interface Protein {
   id: ID_Output;
   name: String;
+  type: ProteinType;
 }
 
 export interface ProteinPromise extends Promise<Protein>, Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
+  type: () => Promise<ProteinType>;
   orders: <T = FragmentableArray<Order>>(args?: {
     where?: OrderWhereInput;
     orderBy?: OrderOrderByInput;
@@ -1388,6 +1420,7 @@ export interface ProteinSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
+  type: () => Promise<AsyncIterator<ProteinType>>;
   orders: <T = Promise<AsyncIterator<OrderSubscription>>>(args?: {
     where?: OrderWhereInput;
     orderBy?: OrderOrderByInput;
@@ -1404,6 +1437,7 @@ export interface ProteinNullablePromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
+  type: () => Promise<ProteinType>;
   orders: <T = FragmentableArray<Order>>(args?: {
     where?: OrderWhereInput;
     orderBy?: OrderOrderByInput;
@@ -1850,6 +1884,7 @@ export interface ProteinSubscriptionPayloadSubscription
 export interface ProteinPreviousValues {
   id: ID_Output;
   name: String;
+  type: ProteinType;
 }
 
 export interface ProteinPreviousValuesPromise
@@ -1857,6 +1892,7 @@ export interface ProteinPreviousValuesPromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
+  type: () => Promise<ProteinType>;
 }
 
 export interface ProteinPreviousValuesSubscription
@@ -1864,6 +1900,7 @@ export interface ProteinPreviousValuesSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
+  type: () => Promise<AsyncIterator<ProteinType>>;
 }
 
 export interface SideDishSubscriptionPayload {
@@ -1894,6 +1931,7 @@ export interface SideDishSubscriptionPayloadSubscription
 export interface SideDishPreviousValues {
   id: ID_Output;
   name: String;
+  type: SideType;
 }
 
 export interface SideDishPreviousValuesPromise
@@ -1901,6 +1939,7 @@ export interface SideDishPreviousValuesPromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
+  type: () => Promise<SideType>;
 }
 
 export interface SideDishPreviousValuesSubscription
@@ -1908,6 +1947,7 @@ export interface SideDishPreviousValuesSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
+  type: () => Promise<AsyncIterator<SideType>>;
 }
 
 export interface UserSubscriptionPayload {
@@ -2039,6 +2079,14 @@ export const models: Model[] = [
   },
   {
     name: "MainType",
+    embedded: false
+  },
+  {
+    name: "SideType",
+    embedded: false
+  },
+  {
+    name: "ProteinType",
     embedded: false
   }
 ];

@@ -31,6 +31,14 @@ var models = [
   {
     name: "MainType",
     embedded: false
+  },
+  {
+    name: "SideType",
+    embedded: false
+  },
+  {
+    name: "ProteinType",
+    embedded: false
   }
 ];
 exports.Prisma = prisma_lib_1.makePrismaClientClass({
