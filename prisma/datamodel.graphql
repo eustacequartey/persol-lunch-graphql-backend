@@ -23,21 +23,21 @@ type Order {
 
 type MainDish {
   id: ID! @id
-  name: String!
+  name: String! @unique
   type: MainType!
   orders: [Order!]!
 }
 
 type SideDish {
   id: ID! @id
-  name: String!
+  name: String! @unique
   type: SideType!
   orders: [Order!]!
 }
 
 type Protein {
   id: ID! @id
-  name: String!
+  name: String! @unique
   type: ProteinType!
   orders: [Order!]!
 }

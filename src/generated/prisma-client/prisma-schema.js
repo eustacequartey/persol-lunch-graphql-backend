@@ -171,6 +171,7 @@ input MainDishWhereInput {
 
 input MainDishWhereUniqueInput {
   id: ID
+  name: String
 }
 
 enum MainType {
@@ -713,6 +714,7 @@ input ProteinWhereInput {
 
 input ProteinWhereUniqueInput {
   id: ID
+  name: String
 }
 
 type Query {
@@ -879,6 +881,7 @@ input SideDishWhereInput {
 
 input SideDishWhereUniqueInput {
   id: ID
+  name: String
 }
 
 enum SideType {

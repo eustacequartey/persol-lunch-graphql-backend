@@ -321,6 +321,7 @@ export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
 export type MainDishWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
+  name?: Maybe<String>;
 }>;
 
 export interface OrderWhereInput {
@@ -593,10 +594,12 @@ export type OrderWhereUniqueInput = AtLeastOne<{
 
 export type ProteinWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
+  name?: Maybe<String>;
 }>;
 
 export type SideDishWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
+  name?: Maybe<String>;
 }>;
 
 export type UserWhereUniqueInput = AtLeastOne<{
