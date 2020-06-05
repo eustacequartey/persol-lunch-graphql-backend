@@ -38,19 +38,10 @@ type Order {
   createdAt: String!
   createdFor: String!
   createdBy: User!
-  # meal: Meal!
   main: MainDish!
   side: SideDish!
   protein: Protein!
 }
-
-# type Meal {
-#   id: ID!
-#   order: Order!
-# main: MainDish!
-# side: SideDish!
-# protein: Protein!
-# }
 
 type MainDish {
   id: ID!
