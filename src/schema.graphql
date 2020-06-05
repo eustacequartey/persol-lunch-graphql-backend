@@ -15,8 +15,8 @@ type Mutation {
   toggleUserActivation(id: ID!): User!
   changeFirstPassword(newPassword: String!): Boolean!
   createMainDish(name: String!, type: MainType!): MainDish!
-  createSideDish(name: String!): SideDish!
-  createProtein(name: String!): Protein!
+  createSideDish(name: String!, type: SideType!): SideDish!
+  createProtein(name: String!, type: ProteinType!): Protein!
   createOrder(data: createOrderInput!): Order!
 }
 
@@ -53,12 +53,14 @@ type MainDish {
 type SideDish {
   id: ID!
   name: String!
+  type: SideType!!
   orders: [Order!]!
 }
 
 type Protein {
   id: ID!
   name: String!
+  type: ProteinType!
   orders: [Order!]!
 }
 
@@ -90,4 +92,15 @@ enum MainType {
   STEW
   SOUP
   HOTSAUCE
+}
+
+enum SideType {
+  DUMPLING
+  RICE
+}
+
+enum ProteinType {
+  MEAT
+  FISH
+  MISCELLANEOUS
 }

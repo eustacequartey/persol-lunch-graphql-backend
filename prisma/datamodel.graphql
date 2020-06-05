@@ -31,12 +31,14 @@ type MainDish {
 type SideDish {
   id: ID! @id
   name: String!
+  type: SideType!!
   orders: [Order!]!
 }
 
 type Protein {
   id: ID! @id
   name: String!
+  type: ProteinType!
   orders: [Order!]!
 }
 
@@ -49,4 +51,15 @@ enum MainType {
   STEW
   SOUP
   HOTSAUCE
+}
+
+enum SideType {
+  DUMPLING
+  RICE
+}
+
+enum ProteinType {
+  MEAT
+  FISH
+  MISCELLANEOUS
 }

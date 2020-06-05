@@ -112,6 +112,7 @@ const Mutation = {
 
     return await ctx.prisma.createSideDish({
       name: args.name,
+      type: args.type,
     });
   },
 
@@ -121,6 +122,7 @@ const Mutation = {
 
     return await ctx.prisma.createProtein({
       name: args.name,
+      type: args.type,
     });
   },
 
