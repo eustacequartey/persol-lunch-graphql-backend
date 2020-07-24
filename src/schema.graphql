@@ -43,7 +43,7 @@ type Order {
   main: MainDish!
   side: SideDish!
   protein: Protein!
-  delivered: String
+  deliveredAt: String
 }
 
 type MainDish {
