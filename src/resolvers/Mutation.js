@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { Authorization, APP_SECRET } = require("../utils");
+const moment = require("moment");
 
 const Mutation = {
   createAdmin: async (parent, args, context) => {
@@ -137,6 +138,26 @@ const Mutation = {
       side: { connect: { id: args.data.side } },
       protein: { connect: { id: args.data.protein } },
       delivered: args.data.delivered || false,
+    });
+  },
+
+  setDelivered: async (_, args, ctx) => {
+    let { admin } = await Authorization(context);
+    if (!admin) throw new Error("Authorized persons only");
+
+    const order = await context.prisma.order({
+      id: args.id,
+    });
+
+    if (!order) throw new Error("No such order found");
+    // const delivered = user.activated;
+
+    return await context.prisma.updateOrder({
+      where: { id: order.id },
+      data: {
+        delivered: true,
+        deliveredAt: moment().format(),
+      },
     });
   },
 };

@@ -232,6 +232,7 @@ type Order {
   side: SideDish!
   protein: Protein
   delivered: Boolean!
+  deliveredAt: DateTime
 }
 
 type OrderConnection {
@@ -248,6 +249,7 @@ input OrderCreateInput {
   side: SideDishCreateOneWithoutOrdersInput!
   protein: ProteinCreateOneWithoutOrdersInput
   delivered: Boolean!
+  deliveredAt: DateTime
 }
 
 input OrderCreateManyWithoutCreatedByInput {
@@ -277,6 +279,7 @@ input OrderCreateWithoutCreatedByInput {
   side: SideDishCreateOneWithoutOrdersInput!
   protein: ProteinCreateOneWithoutOrdersInput
   delivered: Boolean!
+  deliveredAt: DateTime
 }
 
 input OrderCreateWithoutMainInput {
@@ -286,6 +289,7 @@ input OrderCreateWithoutMainInput {
   side: SideDishCreateOneWithoutOrdersInput!
   protein: ProteinCreateOneWithoutOrdersInput
   delivered: Boolean!
+  deliveredAt: DateTime
 }
 
 input OrderCreateWithoutProteinInput {
@@ -295,6 +299,7 @@ input OrderCreateWithoutProteinInput {
   main: MainDishCreateOneWithoutOrdersInput!
   side: SideDishCreateOneWithoutOrdersInput!
   delivered: Boolean!
+  deliveredAt: DateTime
 }
 
 input OrderCreateWithoutSideInput {
@@ -304,6 +309,7 @@ input OrderCreateWithoutSideInput {
   main: MainDishCreateOneWithoutOrdersInput!
   protein: ProteinCreateOneWithoutOrdersInput
   delivered: Boolean!
+  deliveredAt: DateTime
 }
 
 type OrderEdge {
@@ -320,6 +326,8 @@ enum OrderOrderByInput {
   createdFor_DESC
   delivered_ASC
   delivered_DESC
+  deliveredAt_ASC
+  deliveredAt_DESC
 }
 
 type OrderPreviousValues {
@@ -327,6 +335,7 @@ type OrderPreviousValues {
   createdAt: DateTime!
   createdFor: DateTime!
   delivered: Boolean!
+  deliveredAt: DateTime
 }
 
 input OrderScalarWhereInput {
@@ -362,6 +371,14 @@ input OrderScalarWhereInput {
   createdFor_gte: DateTime
   delivered: Boolean
   delivered_not: Boolean
+  deliveredAt: DateTime
+  deliveredAt_not: DateTime
+  deliveredAt_in: [DateTime!]
+  deliveredAt_not_in: [DateTime!]
+  deliveredAt_lt: DateTime
+  deliveredAt_lte: DateTime
+  deliveredAt_gt: DateTime
+  deliveredAt_gte: DateTime
   AND: [OrderScalarWhereInput!]
   OR: [OrderScalarWhereInput!]
   NOT: [OrderScalarWhereInput!]
@@ -392,16 +409,19 @@ input OrderUpdateInput {
   side: SideDishUpdateOneRequiredWithoutOrdersInput
   protein: ProteinUpdateOneWithoutOrdersInput
   delivered: Boolean
+  deliveredAt: DateTime
 }
 
 input OrderUpdateManyDataInput {
   createdFor: DateTime
   delivered: Boolean
+  deliveredAt: DateTime
 }
 
 input OrderUpdateManyMutationInput {
   createdFor: DateTime
   delivered: Boolean
+  deliveredAt: DateTime
 }
 
 input OrderUpdateManyWithoutCreatedByInput {
@@ -463,6 +483,7 @@ input OrderUpdateWithoutCreatedByDataInput {
   side: SideDishUpdateOneRequiredWithoutOrdersInput
   protein: ProteinUpdateOneWithoutOrdersInput
   delivered: Boolean
+  deliveredAt: DateTime
 }
 
 input OrderUpdateWithoutMainDataInput {
@@ -471,6 +492,7 @@ input OrderUpdateWithoutMainDataInput {
   side: SideDishUpdateOneRequiredWithoutOrdersInput
   protein: ProteinUpdateOneWithoutOrdersInput
   delivered: Boolean
+  deliveredAt: DateTime
 }
 
 input OrderUpdateWithoutProteinDataInput {
@@ -479,6 +501,7 @@ input OrderUpdateWithoutProteinDataInput {
   main: MainDishUpdateOneRequiredWithoutOrdersInput
   side: SideDishUpdateOneRequiredWithoutOrdersInput
   delivered: Boolean
+  deliveredAt: DateTime
 }
 
 input OrderUpdateWithoutSideDataInput {
@@ -487,6 +510,7 @@ input OrderUpdateWithoutSideDataInput {
   main: MainDishUpdateOneRequiredWithoutOrdersInput
   protein: ProteinUpdateOneWithoutOrdersInput
   delivered: Boolean
+  deliveredAt: DateTime
 }
 
 input OrderUpdateWithWhereUniqueWithoutCreatedByInput {
@@ -570,6 +594,14 @@ input OrderWhereInput {
   protein: ProteinWhereInput
   delivered: Boolean
   delivered_not: Boolean
+  deliveredAt: DateTime
+  deliveredAt_not: DateTime
+  deliveredAt_in: [DateTime!]
+  deliveredAt_not_in: [DateTime!]
+  deliveredAt_lt: DateTime
+  deliveredAt_lte: DateTime
+  deliveredAt_gt: DateTime
+  deliveredAt_gte: DateTime
   AND: [OrderWhereInput!]
   OR: [OrderWhereInput!]
   NOT: [OrderWhereInput!]

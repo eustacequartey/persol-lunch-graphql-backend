@@ -18,6 +18,7 @@ type Mutation {
   createSideDish(name: String!, type: SideType!): SideDish!
   createProtein(name: String!, type: ProteinType!): Protein!
   createOrder(data: createOrderInput!): Order!
+  setDelivered(id: ID!): Order!
 }
 
 type User {

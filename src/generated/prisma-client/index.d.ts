@@ -273,7 +273,9 @@ export type OrderOrderByInput =
   | "createdFor_ASC"
   | "createdFor_DESC"
   | "delivered_ASC"
-  | "delivered_DESC";
+  | "delivered_DESC"
+  | "deliveredAt_ASC"
+  | "deliveredAt_DESC";
 
 export type MainDishOrderByInput =
   | "id_ASC"
@@ -363,6 +365,14 @@ export interface OrderWhereInput {
   protein?: Maybe<ProteinWhereInput>;
   delivered?: Maybe<Boolean>;
   delivered_not?: Maybe<Boolean>;
+  deliveredAt?: Maybe<DateTimeInput>;
+  deliveredAt_not?: Maybe<DateTimeInput>;
+  deliveredAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  deliveredAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  deliveredAt_lt?: Maybe<DateTimeInput>;
+  deliveredAt_lte?: Maybe<DateTimeInput>;
+  deliveredAt_gt?: Maybe<DateTimeInput>;
+  deliveredAt_gte?: Maybe<DateTimeInput>;
   AND?: Maybe<OrderWhereInput[] | OrderWhereInput>;
   OR?: Maybe<OrderWhereInput[] | OrderWhereInput>;
   NOT?: Maybe<OrderWhereInput[] | OrderWhereInput>;
@@ -630,6 +640,7 @@ export interface OrderCreateWithoutMainInput {
   side: SideDishCreateOneWithoutOrdersInput;
   protein?: Maybe<ProteinCreateOneWithoutOrdersInput>;
   delivered: Boolean;
+  deliveredAt?: Maybe<DateTimeInput>;
 }
 
 export interface UserCreateOneWithoutOrdersInput {
@@ -708,6 +719,7 @@ export interface OrderUpdateWithoutMainDataInput {
   side?: Maybe<SideDishUpdateOneRequiredWithoutOrdersInput>;
   protein?: Maybe<ProteinUpdateOneWithoutOrdersInput>;
   delivered?: Maybe<Boolean>;
+  deliveredAt?: Maybe<DateTimeInput>;
 }
 
 export interface UserUpdateOneRequiredWithoutOrdersInput {
@@ -808,6 +820,14 @@ export interface OrderScalarWhereInput {
   createdFor_gte?: Maybe<DateTimeInput>;
   delivered?: Maybe<Boolean>;
   delivered_not?: Maybe<Boolean>;
+  deliveredAt?: Maybe<DateTimeInput>;
+  deliveredAt_not?: Maybe<DateTimeInput>;
+  deliveredAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  deliveredAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  deliveredAt_lt?: Maybe<DateTimeInput>;
+  deliveredAt_lte?: Maybe<DateTimeInput>;
+  deliveredAt_gt?: Maybe<DateTimeInput>;
+  deliveredAt_gte?: Maybe<DateTimeInput>;
   AND?: Maybe<OrderScalarWhereInput[] | OrderScalarWhereInput>;
   OR?: Maybe<OrderScalarWhereInput[] | OrderScalarWhereInput>;
   NOT?: Maybe<OrderScalarWhereInput[] | OrderScalarWhereInput>;
@@ -821,6 +841,7 @@ export interface OrderUpdateManyWithWhereNestedInput {
 export interface OrderUpdateManyDataInput {
   createdFor?: Maybe<DateTimeInput>;
   delivered?: Maybe<Boolean>;
+  deliveredAt?: Maybe<DateTimeInput>;
 }
 
 export interface MainDishUpdateManyMutationInput {
@@ -836,6 +857,7 @@ export interface OrderCreateInput {
   side: SideDishCreateOneWithoutOrdersInput;
   protein?: Maybe<ProteinCreateOneWithoutOrdersInput>;
   delivered: Boolean;
+  deliveredAt?: Maybe<DateTimeInput>;
 }
 
 export interface MainDishCreateOneWithoutOrdersInput {
@@ -856,6 +878,7 @@ export interface OrderUpdateInput {
   side?: Maybe<SideDishUpdateOneRequiredWithoutOrdersInput>;
   protein?: Maybe<ProteinUpdateOneWithoutOrdersInput>;
   delivered?: Maybe<Boolean>;
+  deliveredAt?: Maybe<DateTimeInput>;
 }
 
 export interface MainDishUpdateOneRequiredWithoutOrdersInput {
@@ -878,6 +901,7 @@ export interface MainDishUpsertWithoutOrdersInput {
 export interface OrderUpdateManyMutationInput {
   createdFor?: Maybe<DateTimeInput>;
   delivered?: Maybe<Boolean>;
+  deliveredAt?: Maybe<DateTimeInput>;
 }
 
 export interface ProteinCreateInput {
@@ -901,6 +925,7 @@ export interface OrderCreateWithoutProteinInput {
   main: MainDishCreateOneWithoutOrdersInput;
   side: SideDishCreateOneWithoutOrdersInput;
   delivered: Boolean;
+  deliveredAt?: Maybe<DateTimeInput>;
 }
 
 export interface ProteinUpdateInput {
@@ -942,6 +967,7 @@ export interface OrderUpdateWithoutProteinDataInput {
   main?: Maybe<MainDishUpdateOneRequiredWithoutOrdersInput>;
   side?: Maybe<SideDishUpdateOneRequiredWithoutOrdersInput>;
   delivered?: Maybe<Boolean>;
+  deliveredAt?: Maybe<DateTimeInput>;
 }
 
 export interface OrderUpsertWithWhereUniqueWithoutProteinInput {
@@ -974,6 +1000,7 @@ export interface OrderCreateWithoutSideInput {
   main: MainDishCreateOneWithoutOrdersInput;
   protein?: Maybe<ProteinCreateOneWithoutOrdersInput>;
   delivered: Boolean;
+  deliveredAt?: Maybe<DateTimeInput>;
 }
 
 export interface SideDishUpdateInput {
@@ -1013,6 +1040,7 @@ export interface OrderUpdateWithoutSideDataInput {
   main?: Maybe<MainDishUpdateOneRequiredWithoutOrdersInput>;
   protein?: Maybe<ProteinUpdateOneWithoutOrdersInput>;
   delivered?: Maybe<Boolean>;
+  deliveredAt?: Maybe<DateTimeInput>;
 }
 
 export interface OrderUpsertWithWhereUniqueWithoutSideInput {
@@ -1053,6 +1081,7 @@ export interface OrderCreateWithoutCreatedByInput {
   side: SideDishCreateOneWithoutOrdersInput;
   protein?: Maybe<ProteinCreateOneWithoutOrdersInput>;
   delivered: Boolean;
+  deliveredAt?: Maybe<DateTimeInput>;
 }
 
 export interface UserUpdateInput {
@@ -1100,6 +1129,7 @@ export interface OrderUpdateWithoutCreatedByDataInput {
   side?: Maybe<SideDishUpdateOneRequiredWithoutOrdersInput>;
   protein?: Maybe<ProteinUpdateOneWithoutOrdersInput>;
   delivered?: Maybe<Boolean>;
+  deliveredAt?: Maybe<DateTimeInput>;
 }
 
 export interface OrderUpsertWithWhereUniqueWithoutCreatedByInput {
@@ -1246,6 +1276,7 @@ export interface Order {
   createdAt: DateTimeOutput;
   createdFor: DateTimeOutput;
   delivered: Boolean;
+  deliveredAt?: DateTimeOutput;
 }
 
 export interface OrderPromise extends Promise<Order>, Fragmentable {
@@ -1257,6 +1288,7 @@ export interface OrderPromise extends Promise<Order>, Fragmentable {
   side: <T = SideDishPromise>() => T;
   protein: <T = ProteinPromise>() => T;
   delivered: () => Promise<Boolean>;
+  deliveredAt: () => Promise<DateTimeOutput>;
 }
 
 export interface OrderSubscription
@@ -1270,6 +1302,7 @@ export interface OrderSubscription
   side: <T = SideDishSubscription>() => T;
   protein: <T = ProteinSubscription>() => T;
   delivered: () => Promise<AsyncIterator<Boolean>>;
+  deliveredAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface OrderNullablePromise
@@ -1283,6 +1316,7 @@ export interface OrderNullablePromise
   side: <T = SideDishPromise>() => T;
   protein: <T = ProteinPromise>() => T;
   delivered: () => Promise<Boolean>;
+  deliveredAt: () => Promise<DateTimeOutput>;
 }
 
 export interface User {
@@ -1864,6 +1898,7 @@ export interface OrderPreviousValues {
   createdAt: DateTimeOutput;
   createdFor: DateTimeOutput;
   delivered: Boolean;
+  deliveredAt?: DateTimeOutput;
 }
 
 export interface OrderPreviousValuesPromise
@@ -1873,6 +1908,7 @@ export interface OrderPreviousValuesPromise
   createdAt: () => Promise<DateTimeOutput>;
   createdFor: () => Promise<DateTimeOutput>;
   delivered: () => Promise<Boolean>;
+  deliveredAt: () => Promise<DateTimeOutput>;
 }
 
 export interface OrderPreviousValuesSubscription
@@ -1882,6 +1918,7 @@ export interface OrderPreviousValuesSubscription
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   createdFor: () => Promise<AsyncIterator<DateTimeOutput>>;
   delivered: () => Promise<AsyncIterator<Boolean>>;
+  deliveredAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface ProteinSubscriptionPayload {
