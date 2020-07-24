@@ -19,6 +19,7 @@ type Order {
   main: MainDish!
   side: SideDish!
   protein: Protein
+  delivered: Boolean!
 }
 
 type MainDish {

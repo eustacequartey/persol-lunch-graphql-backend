@@ -136,7 +136,7 @@ const Mutation = {
       main: { connect: { id: args.data.main } },
       side: { connect: { id: args.data.side } },
       protein: { connect: { id: args.data.protein } },
-      delivered: _.data.delivered || false,
+      delivered: args.data.delivered || false,
     });
   },
 };
