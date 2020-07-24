@@ -3,4 +3,5 @@ module.exports = {
   main: (_, args, ctx) => ctx.prisma.order({ id: _.id }).main(),
   side: (_, args, ctx) => ctx.prisma.order({ id: _.id }).side(),
   protein: (_, args, ctx) => ctx.prisma.order({ id: _.id }).protein(),
+  delivered: (_, args, ctx) => _.delivered,
 };
