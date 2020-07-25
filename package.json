@@ -9,6 +9,7 @@
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.27.0",
     "prisma-client-lib": "^1.34.10",
+    "react-json-excel": "^1.1.0",
     "uuid": "^7.0.3"
   },
   "scripts": {
