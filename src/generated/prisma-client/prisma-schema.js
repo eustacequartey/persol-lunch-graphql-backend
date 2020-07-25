@@ -233,6 +233,8 @@ type Order {
   protein: Protein
   delivered: Boolean!
   deliveredAt: DateTime
+  comments: String
+  feedback: String
 }
 
 type OrderConnection {
@@ -250,6 +252,8 @@ input OrderCreateInput {
   protein: ProteinCreateOneWithoutOrdersInput
   delivered: Boolean!
   deliveredAt: DateTime
+  comments: String
+  feedback: String
 }
 
 input OrderCreateManyWithoutCreatedByInput {
@@ -280,6 +284,8 @@ input OrderCreateWithoutCreatedByInput {
   protein: ProteinCreateOneWithoutOrdersInput
   delivered: Boolean!
   deliveredAt: DateTime
+  comments: String
+  feedback: String
 }
 
 input OrderCreateWithoutMainInput {
@@ -290,6 +296,8 @@ input OrderCreateWithoutMainInput {
   protein: ProteinCreateOneWithoutOrdersInput
   delivered: Boolean!
   deliveredAt: DateTime
+  comments: String
+  feedback: String
 }
 
 input OrderCreateWithoutProteinInput {
@@ -300,6 +308,8 @@ input OrderCreateWithoutProteinInput {
   side: SideDishCreateOneWithoutOrdersInput!
   delivered: Boolean!
   deliveredAt: DateTime
+  comments: String
+  feedback: String
 }
 
 input OrderCreateWithoutSideInput {
@@ -310,6 +320,8 @@ input OrderCreateWithoutSideInput {
   protein: ProteinCreateOneWithoutOrdersInput
   delivered: Boolean!
   deliveredAt: DateTime
+  comments: String
+  feedback: String
 }
 
 type OrderEdge {
@@ -328,6 +340,10 @@ enum OrderOrderByInput {
   delivered_DESC
   deliveredAt_ASC
   deliveredAt_DESC
+  comments_ASC
+  comments_DESC
+  feedback_ASC
+  feedback_DESC
 }
 
 type OrderPreviousValues {
@@ -336,6 +352,8 @@ type OrderPreviousValues {
   createdFor: DateTime!
   delivered: Boolean!
   deliveredAt: DateTime
+  comments: String
+  feedback: String
 }
 
 input OrderScalarWhereInput {
@@ -379,6 +397,34 @@ input OrderScalarWhereInput {
   deliveredAt_lte: DateTime
   deliveredAt_gt: DateTime
   deliveredAt_gte: DateTime
+  comments: String
+  comments_not: String
+  comments_in: [String!]
+  comments_not_in: [String!]
+  comments_lt: String
+  comments_lte: String
+  comments_gt: String
+  comments_gte: String
+  comments_contains: String
+  comments_not_contains: String
+  comments_starts_with: String
+  comments_not_starts_with: String
+  comments_ends_with: String
+  comments_not_ends_with: String
+  feedback: String
+  feedback_not: String
+  feedback_in: [String!]
+  feedback_not_in: [String!]
+  feedback_lt: String
+  feedback_lte: String
+  feedback_gt: String
+  feedback_gte: String
+  feedback_contains: String
+  feedback_not_contains: String
+  feedback_starts_with: String
+  feedback_not_starts_with: String
+  feedback_ends_with: String
+  feedback_not_ends_with: String
   AND: [OrderScalarWhereInput!]
   OR: [OrderScalarWhereInput!]
   NOT: [OrderScalarWhereInput!]
@@ -410,18 +456,24 @@ input OrderUpdateInput {
   protein: ProteinUpdateOneWithoutOrdersInput
   delivered: Boolean
   deliveredAt: DateTime
+  comments: String
+  feedback: String
 }
 
 input OrderUpdateManyDataInput {
   createdFor: DateTime
   delivered: Boolean
   deliveredAt: DateTime
+  comments: String
+  feedback: String
 }
 
 input OrderUpdateManyMutationInput {
   createdFor: DateTime
   delivered: Boolean
   deliveredAt: DateTime
+  comments: String
+  feedback: String
 }
 
 input OrderUpdateManyWithoutCreatedByInput {
@@ -484,6 +536,8 @@ input OrderUpdateWithoutCreatedByDataInput {
   protein: ProteinUpdateOneWithoutOrdersInput
   delivered: Boolean
   deliveredAt: DateTime
+  comments: String
+  feedback: String
 }
 
 input OrderUpdateWithoutMainDataInput {
@@ -493,6 +547,8 @@ input OrderUpdateWithoutMainDataInput {
   protein: ProteinUpdateOneWithoutOrdersInput
   delivered: Boolean
   deliveredAt: DateTime
+  comments: String
+  feedback: String
 }
 
 input OrderUpdateWithoutProteinDataInput {
@@ -502,6 +558,8 @@ input OrderUpdateWithoutProteinDataInput {
   side: SideDishUpdateOneRequiredWithoutOrdersInput
   delivered: Boolean
   deliveredAt: DateTime
+  comments: String
+  feedback: String
 }
 
 input OrderUpdateWithoutSideDataInput {
@@ -511,6 +569,8 @@ input OrderUpdateWithoutSideDataInput {
   protein: ProteinUpdateOneWithoutOrdersInput
   delivered: Boolean
   deliveredAt: DateTime
+  comments: String
+  feedback: String
 }
 
 input OrderUpdateWithWhereUniqueWithoutCreatedByInput {
@@ -602,6 +662,34 @@ input OrderWhereInput {
   deliveredAt_lte: DateTime
   deliveredAt_gt: DateTime
   deliveredAt_gte: DateTime
+  comments: String
+  comments_not: String
+  comments_in: [String!]
+  comments_not_in: [String!]
+  comments_lt: String
+  comments_lte: String
+  comments_gt: String
+  comments_gte: String
+  comments_contains: String
+  comments_not_contains: String
+  comments_starts_with: String
+  comments_not_starts_with: String
+  comments_ends_with: String
+  comments_not_ends_with: String
+  feedback: String
+  feedback_not: String
+  feedback_in: [String!]
+  feedback_not_in: [String!]
+  feedback_lt: String
+  feedback_lte: String
+  feedback_gt: String
+  feedback_gte: String
+  feedback_contains: String
+  feedback_not_contains: String
+  feedback_starts_with: String
+  feedback_not_starts_with: String
+  feedback_ends_with: String
+  feedback_not_ends_with: String
   AND: [OrderWhereInput!]
   OR: [OrderWhereInput!]
   NOT: [OrderWhereInput!]
@@ -959,6 +1047,9 @@ type User {
   password: String!
   hasChangedPassword: Boolean!
   activated: Boolean!
+  phone: String!
+  dob: DateTime!
+  address: String!
   orders(where: OrderWhereInput, orderBy: OrderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Order!]
 }
 
@@ -978,6 +1069,9 @@ input UserCreateInput {
   password: String!
   hasChangedPassword: Boolean!
   activated: Boolean!
+  phone: String!
+  dob: DateTime!
+  address: String!
   orders: OrderCreateManyWithoutCreatedByInput
 }
 
@@ -996,6 +1090,9 @@ input UserCreateWithoutOrdersInput {
   password: String!
   hasChangedPassword: Boolean!
   activated: Boolean!
+  phone: String!
+  dob: DateTime!
+  address: String!
 }
 
 type UserEdge {
@@ -1022,6 +1119,12 @@ enum UserOrderByInput {
   hasChangedPassword_DESC
   activated_ASC
   activated_DESC
+  phone_ASC
+  phone_DESC
+  dob_ASC
+  dob_DESC
+  address_ASC
+  address_DESC
 }
 
 type UserPreviousValues {
@@ -1034,6 +1137,9 @@ type UserPreviousValues {
   password: String!
   hasChangedPassword: Boolean!
   activated: Boolean!
+  phone: String!
+  dob: DateTime!
+  address: String!
 }
 
 type UserSubscriptionPayload {
@@ -1063,6 +1169,9 @@ input UserUpdateInput {
   password: String
   hasChangedPassword: Boolean
   activated: Boolean
+  phone: String
+  dob: DateTime
+  address: String
   orders: OrderUpdateManyWithoutCreatedByInput
 }
 
@@ -1075,6 +1184,9 @@ input UserUpdateManyMutationInput {
   password: String
   hasChangedPassword: Boolean
   activated: Boolean
+  phone: String
+  dob: DateTime
+  address: String
 }
 
 input UserUpdateOneRequiredWithoutOrdersInput {
@@ -1093,6 +1205,9 @@ input UserUpdateWithoutOrdersDataInput {
   password: String
   hasChangedPassword: Boolean
   activated: Boolean
+  phone: String
+  dob: DateTime
+  address: String
 }
 
 input UserUpsertWithoutOrdersInput {
@@ -1193,6 +1308,42 @@ input UserWhereInput {
   hasChangedPassword_not: Boolean
   activated: Boolean
   activated_not: Boolean
+  phone: String
+  phone_not: String
+  phone_in: [String!]
+  phone_not_in: [String!]
+  phone_lt: String
+  phone_lte: String
+  phone_gt: String
+  phone_gte: String
+  phone_contains: String
+  phone_not_contains: String
+  phone_starts_with: String
+  phone_not_starts_with: String
+  phone_ends_with: String
+  phone_not_ends_with: String
+  dob: DateTime
+  dob_not: DateTime
+  dob_in: [DateTime!]
+  dob_not_in: [DateTime!]
+  dob_lt: DateTime
+  dob_lte: DateTime
+  dob_gt: DateTime
+  dob_gte: DateTime
+  address: String
+  address_not: String
+  address_in: [String!]
+  address_not_in: [String!]
+  address_lt: String
+  address_lte: String
+  address_gt: String
+  address_gte: String
+  address_contains: String
+  address_not_contains: String
+  address_starts_with: String
+  address_not_starts_with: String
+  address_ends_with: String
+  address_not_ends_with: String
   orders_every: OrderWhereInput
   orders_some: OrderWhereInput
   orders_none: OrderWhereInput
@@ -1204,6 +1355,7 @@ input UserWhereInput {
 input UserWhereUniqueInput {
   id: ID
   email: String
+  phone: String
 }
 `
       }

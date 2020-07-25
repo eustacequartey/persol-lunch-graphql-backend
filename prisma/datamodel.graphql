@@ -8,6 +8,9 @@ type User {
   password: String!
   hasChangedPassword: Boolean!
   activated: Boolean!
+  phone: String! @unique
+  dob: DateTime!
+  address: String!
   orders: [Order!]! @relation(name: "UserOrders", onDelete: CASCADE)
 }
 
@@ -21,6 +24,8 @@ type Order {
   protein: Protein
   delivered: Boolean!
   deliveredAt: DateTime
+  comments: String
+  feedback: String
 }
 
 type MainDish {

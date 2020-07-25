@@ -32,6 +32,9 @@ type User {
   hasChangedPassword: Boolean!
   activated: Boolean!
   orders: [Order!]!
+  phone: String!
+  dob: String!
+  address: String!
 }
 
 type Order {
@@ -44,6 +47,8 @@ type Order {
   side: SideDish!
   protein: Protein!
   deliveredAt: String
+  comments: String
+  feedback: String
 }
 
 type MainDish {
@@ -72,6 +77,9 @@ input createUserInput {
   otherNames: String
   lastName: String!
   email: String!
+  phone: String!
+  dob: String!
+  address: String!
 }
 
 input createOrderInput {

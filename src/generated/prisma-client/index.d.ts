@@ -275,7 +275,11 @@ export type OrderOrderByInput =
   | "delivered_ASC"
   | "delivered_DESC"
   | "deliveredAt_ASC"
-  | "deliveredAt_DESC";
+  | "deliveredAt_DESC"
+  | "comments_ASC"
+  | "comments_DESC"
+  | "feedback_ASC"
+  | "feedback_DESC";
 
 export type MainDishOrderByInput =
   | "id_ASC"
@@ -319,7 +323,13 @@ export type UserOrderByInput =
   | "hasChangedPassword_ASC"
   | "hasChangedPassword_DESC"
   | "activated_ASC"
-  | "activated_DESC";
+  | "activated_DESC"
+  | "phone_ASC"
+  | "phone_DESC"
+  | "dob_ASC"
+  | "dob_DESC"
+  | "address_ASC"
+  | "address_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
@@ -373,6 +383,34 @@ export interface OrderWhereInput {
   deliveredAt_lte?: Maybe<DateTimeInput>;
   deliveredAt_gt?: Maybe<DateTimeInput>;
   deliveredAt_gte?: Maybe<DateTimeInput>;
+  comments?: Maybe<String>;
+  comments_not?: Maybe<String>;
+  comments_in?: Maybe<String[] | String>;
+  comments_not_in?: Maybe<String[] | String>;
+  comments_lt?: Maybe<String>;
+  comments_lte?: Maybe<String>;
+  comments_gt?: Maybe<String>;
+  comments_gte?: Maybe<String>;
+  comments_contains?: Maybe<String>;
+  comments_not_contains?: Maybe<String>;
+  comments_starts_with?: Maybe<String>;
+  comments_not_starts_with?: Maybe<String>;
+  comments_ends_with?: Maybe<String>;
+  comments_not_ends_with?: Maybe<String>;
+  feedback?: Maybe<String>;
+  feedback_not?: Maybe<String>;
+  feedback_in?: Maybe<String[] | String>;
+  feedback_not_in?: Maybe<String[] | String>;
+  feedback_lt?: Maybe<String>;
+  feedback_lte?: Maybe<String>;
+  feedback_gt?: Maybe<String>;
+  feedback_gte?: Maybe<String>;
+  feedback_contains?: Maybe<String>;
+  feedback_not_contains?: Maybe<String>;
+  feedback_starts_with?: Maybe<String>;
+  feedback_not_starts_with?: Maybe<String>;
+  feedback_ends_with?: Maybe<String>;
+  feedback_not_ends_with?: Maybe<String>;
   AND?: Maybe<OrderWhereInput[] | OrderWhereInput>;
   OR?: Maybe<OrderWhereInput[] | OrderWhereInput>;
   NOT?: Maybe<OrderWhereInput[] | OrderWhereInput>;
@@ -471,6 +509,42 @@ export interface UserWhereInput {
   hasChangedPassword_not?: Maybe<Boolean>;
   activated?: Maybe<Boolean>;
   activated_not?: Maybe<Boolean>;
+  phone?: Maybe<String>;
+  phone_not?: Maybe<String>;
+  phone_in?: Maybe<String[] | String>;
+  phone_not_in?: Maybe<String[] | String>;
+  phone_lt?: Maybe<String>;
+  phone_lte?: Maybe<String>;
+  phone_gt?: Maybe<String>;
+  phone_gte?: Maybe<String>;
+  phone_contains?: Maybe<String>;
+  phone_not_contains?: Maybe<String>;
+  phone_starts_with?: Maybe<String>;
+  phone_not_starts_with?: Maybe<String>;
+  phone_ends_with?: Maybe<String>;
+  phone_not_ends_with?: Maybe<String>;
+  dob?: Maybe<DateTimeInput>;
+  dob_not?: Maybe<DateTimeInput>;
+  dob_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  dob_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  dob_lt?: Maybe<DateTimeInput>;
+  dob_lte?: Maybe<DateTimeInput>;
+  dob_gt?: Maybe<DateTimeInput>;
+  dob_gte?: Maybe<DateTimeInput>;
+  address?: Maybe<String>;
+  address_not?: Maybe<String>;
+  address_in?: Maybe<String[] | String>;
+  address_not_in?: Maybe<String[] | String>;
+  address_lt?: Maybe<String>;
+  address_lte?: Maybe<String>;
+  address_gt?: Maybe<String>;
+  address_gte?: Maybe<String>;
+  address_contains?: Maybe<String>;
+  address_not_contains?: Maybe<String>;
+  address_starts_with?: Maybe<String>;
+  address_not_starts_with?: Maybe<String>;
+  address_ends_with?: Maybe<String>;
+  address_not_ends_with?: Maybe<String>;
   orders_every?: Maybe<OrderWhereInput>;
   orders_some?: Maybe<OrderWhereInput>;
   orders_none?: Maybe<OrderWhereInput>;
@@ -619,6 +693,7 @@ export type SideDishWhereUniqueInput = AtLeastOne<{
 export type UserWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
   email?: Maybe<String>;
+  phone?: Maybe<String>;
 }>;
 
 export interface MainDishCreateInput {
@@ -641,6 +716,8 @@ export interface OrderCreateWithoutMainInput {
   protein?: Maybe<ProteinCreateOneWithoutOrdersInput>;
   delivered: Boolean;
   deliveredAt?: Maybe<DateTimeInput>;
+  comments?: Maybe<String>;
+  feedback?: Maybe<String>;
 }
 
 export interface UserCreateOneWithoutOrdersInput {
@@ -658,6 +735,9 @@ export interface UserCreateWithoutOrdersInput {
   password: String;
   hasChangedPassword: Boolean;
   activated: Boolean;
+  phone: String;
+  dob: DateTimeInput;
+  address: String;
 }
 
 export interface SideDishCreateOneWithoutOrdersInput {
@@ -720,6 +800,8 @@ export interface OrderUpdateWithoutMainDataInput {
   protein?: Maybe<ProteinUpdateOneWithoutOrdersInput>;
   delivered?: Maybe<Boolean>;
   deliveredAt?: Maybe<DateTimeInput>;
+  comments?: Maybe<String>;
+  feedback?: Maybe<String>;
 }
 
 export interface UserUpdateOneRequiredWithoutOrdersInput {
@@ -738,6 +820,9 @@ export interface UserUpdateWithoutOrdersDataInput {
   password?: Maybe<String>;
   hasChangedPassword?: Maybe<Boolean>;
   activated?: Maybe<Boolean>;
+  phone?: Maybe<String>;
+  dob?: Maybe<DateTimeInput>;
+  address?: Maybe<String>;
 }
 
 export interface UserUpsertWithoutOrdersInput {
@@ -828,6 +913,34 @@ export interface OrderScalarWhereInput {
   deliveredAt_lte?: Maybe<DateTimeInput>;
   deliveredAt_gt?: Maybe<DateTimeInput>;
   deliveredAt_gte?: Maybe<DateTimeInput>;
+  comments?: Maybe<String>;
+  comments_not?: Maybe<String>;
+  comments_in?: Maybe<String[] | String>;
+  comments_not_in?: Maybe<String[] | String>;
+  comments_lt?: Maybe<String>;
+  comments_lte?: Maybe<String>;
+  comments_gt?: Maybe<String>;
+  comments_gte?: Maybe<String>;
+  comments_contains?: Maybe<String>;
+  comments_not_contains?: Maybe<String>;
+  comments_starts_with?: Maybe<String>;
+  comments_not_starts_with?: Maybe<String>;
+  comments_ends_with?: Maybe<String>;
+  comments_not_ends_with?: Maybe<String>;
+  feedback?: Maybe<String>;
+  feedback_not?: Maybe<String>;
+  feedback_in?: Maybe<String[] | String>;
+  feedback_not_in?: Maybe<String[] | String>;
+  feedback_lt?: Maybe<String>;
+  feedback_lte?: Maybe<String>;
+  feedback_gt?: Maybe<String>;
+  feedback_gte?: Maybe<String>;
+  feedback_contains?: Maybe<String>;
+  feedback_not_contains?: Maybe<String>;
+  feedback_starts_with?: Maybe<String>;
+  feedback_not_starts_with?: Maybe<String>;
+  feedback_ends_with?: Maybe<String>;
+  feedback_not_ends_with?: Maybe<String>;
   AND?: Maybe<OrderScalarWhereInput[] | OrderScalarWhereInput>;
   OR?: Maybe<OrderScalarWhereInput[] | OrderScalarWhereInput>;
   NOT?: Maybe<OrderScalarWhereInput[] | OrderScalarWhereInput>;
@@ -842,6 +955,8 @@ export interface OrderUpdateManyDataInput {
   createdFor?: Maybe<DateTimeInput>;
   delivered?: Maybe<Boolean>;
   deliveredAt?: Maybe<DateTimeInput>;
+  comments?: Maybe<String>;
+  feedback?: Maybe<String>;
 }
 
 export interface MainDishUpdateManyMutationInput {
@@ -858,6 +973,8 @@ export interface OrderCreateInput {
   protein?: Maybe<ProteinCreateOneWithoutOrdersInput>;
   delivered: Boolean;
   deliveredAt?: Maybe<DateTimeInput>;
+  comments?: Maybe<String>;
+  feedback?: Maybe<String>;
 }
 
 export interface MainDishCreateOneWithoutOrdersInput {
@@ -879,6 +996,8 @@ export interface OrderUpdateInput {
   protein?: Maybe<ProteinUpdateOneWithoutOrdersInput>;
   delivered?: Maybe<Boolean>;
   deliveredAt?: Maybe<DateTimeInput>;
+  comments?: Maybe<String>;
+  feedback?: Maybe<String>;
 }
 
 export interface MainDishUpdateOneRequiredWithoutOrdersInput {
@@ -902,6 +1021,8 @@ export interface OrderUpdateManyMutationInput {
   createdFor?: Maybe<DateTimeInput>;
   delivered?: Maybe<Boolean>;
   deliveredAt?: Maybe<DateTimeInput>;
+  comments?: Maybe<String>;
+  feedback?: Maybe<String>;
 }
 
 export interface ProteinCreateInput {
@@ -926,6 +1047,8 @@ export interface OrderCreateWithoutProteinInput {
   side: SideDishCreateOneWithoutOrdersInput;
   delivered: Boolean;
   deliveredAt?: Maybe<DateTimeInput>;
+  comments?: Maybe<String>;
+  feedback?: Maybe<String>;
 }
 
 export interface ProteinUpdateInput {
@@ -968,6 +1091,8 @@ export interface OrderUpdateWithoutProteinDataInput {
   side?: Maybe<SideDishUpdateOneRequiredWithoutOrdersInput>;
   delivered?: Maybe<Boolean>;
   deliveredAt?: Maybe<DateTimeInput>;
+  comments?: Maybe<String>;
+  feedback?: Maybe<String>;
 }
 
 export interface OrderUpsertWithWhereUniqueWithoutProteinInput {
@@ -1001,6 +1126,8 @@ export interface OrderCreateWithoutSideInput {
   protein?: Maybe<ProteinCreateOneWithoutOrdersInput>;
   delivered: Boolean;
   deliveredAt?: Maybe<DateTimeInput>;
+  comments?: Maybe<String>;
+  feedback?: Maybe<String>;
 }
 
 export interface SideDishUpdateInput {
@@ -1041,6 +1168,8 @@ export interface OrderUpdateWithoutSideDataInput {
   protein?: Maybe<ProteinUpdateOneWithoutOrdersInput>;
   delivered?: Maybe<Boolean>;
   deliveredAt?: Maybe<DateTimeInput>;
+  comments?: Maybe<String>;
+  feedback?: Maybe<String>;
 }
 
 export interface OrderUpsertWithWhereUniqueWithoutSideInput {
@@ -1064,6 +1193,9 @@ export interface UserCreateInput {
   password: String;
   hasChangedPassword: Boolean;
   activated: Boolean;
+  phone: String;
+  dob: DateTimeInput;
+  address: String;
   orders?: Maybe<OrderCreateManyWithoutCreatedByInput>;
 }
 
@@ -1082,6 +1214,8 @@ export interface OrderCreateWithoutCreatedByInput {
   protein?: Maybe<ProteinCreateOneWithoutOrdersInput>;
   delivered: Boolean;
   deliveredAt?: Maybe<DateTimeInput>;
+  comments?: Maybe<String>;
+  feedback?: Maybe<String>;
 }
 
 export interface UserUpdateInput {
@@ -1093,6 +1227,9 @@ export interface UserUpdateInput {
   password?: Maybe<String>;
   hasChangedPassword?: Maybe<Boolean>;
   activated?: Maybe<Boolean>;
+  phone?: Maybe<String>;
+  dob?: Maybe<DateTimeInput>;
+  address?: Maybe<String>;
   orders?: Maybe<OrderUpdateManyWithoutCreatedByInput>;
 }
 
@@ -1130,6 +1267,8 @@ export interface OrderUpdateWithoutCreatedByDataInput {
   protein?: Maybe<ProteinUpdateOneWithoutOrdersInput>;
   delivered?: Maybe<Boolean>;
   deliveredAt?: Maybe<DateTimeInput>;
+  comments?: Maybe<String>;
+  feedback?: Maybe<String>;
 }
 
 export interface OrderUpsertWithWhereUniqueWithoutCreatedByInput {
@@ -1147,6 +1286,9 @@ export interface UserUpdateManyMutationInput {
   password?: Maybe<String>;
   hasChangedPassword?: Maybe<Boolean>;
   activated?: Maybe<Boolean>;
+  phone?: Maybe<String>;
+  dob?: Maybe<DateTimeInput>;
+  address?: Maybe<String>;
 }
 
 export interface MainDishSubscriptionWhereInput {
@@ -1277,6 +1419,8 @@ export interface Order {
   createdFor: DateTimeOutput;
   delivered: Boolean;
   deliveredAt?: DateTimeOutput;
+  comments?: String;
+  feedback?: String;
 }
 
 export interface OrderPromise extends Promise<Order>, Fragmentable {
@@ -1289,6 +1433,8 @@ export interface OrderPromise extends Promise<Order>, Fragmentable {
   protein: <T = ProteinPromise>() => T;
   delivered: () => Promise<Boolean>;
   deliveredAt: () => Promise<DateTimeOutput>;
+  comments: () => Promise<String>;
+  feedback: () => Promise<String>;
 }
 
 export interface OrderSubscription
@@ -1303,6 +1449,8 @@ export interface OrderSubscription
   protein: <T = ProteinSubscription>() => T;
   delivered: () => Promise<AsyncIterator<Boolean>>;
   deliveredAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  comments: () => Promise<AsyncIterator<String>>;
+  feedback: () => Promise<AsyncIterator<String>>;
 }
 
 export interface OrderNullablePromise
@@ -1317,6 +1465,8 @@ export interface OrderNullablePromise
   protein: <T = ProteinPromise>() => T;
   delivered: () => Promise<Boolean>;
   deliveredAt: () => Promise<DateTimeOutput>;
+  comments: () => Promise<String>;
+  feedback: () => Promise<String>;
 }
 
 export interface User {
@@ -1329,6 +1479,9 @@ export interface User {
   password: String;
   hasChangedPassword: Boolean;
   activated: Boolean;
+  phone: String;
+  dob: DateTimeOutput;
+  address: String;
 }
 
 export interface UserPromise extends Promise<User>, Fragmentable {
@@ -1341,6 +1494,9 @@ export interface UserPromise extends Promise<User>, Fragmentable {
   password: () => Promise<String>;
   hasChangedPassword: () => Promise<Boolean>;
   activated: () => Promise<Boolean>;
+  phone: () => Promise<String>;
+  dob: () => Promise<DateTimeOutput>;
+  address: () => Promise<String>;
   orders: <T = FragmentableArray<Order>>(args?: {
     where?: OrderWhereInput;
     orderBy?: OrderOrderByInput;
@@ -1364,6 +1520,9 @@ export interface UserSubscription
   password: () => Promise<AsyncIterator<String>>;
   hasChangedPassword: () => Promise<AsyncIterator<Boolean>>;
   activated: () => Promise<AsyncIterator<Boolean>>;
+  phone: () => Promise<AsyncIterator<String>>;
+  dob: () => Promise<AsyncIterator<DateTimeOutput>>;
+  address: () => Promise<AsyncIterator<String>>;
   orders: <T = Promise<AsyncIterator<OrderSubscription>>>(args?: {
     where?: OrderWhereInput;
     orderBy?: OrderOrderByInput;
@@ -1387,6 +1546,9 @@ export interface UserNullablePromise
   password: () => Promise<String>;
   hasChangedPassword: () => Promise<Boolean>;
   activated: () => Promise<Boolean>;
+  phone: () => Promise<String>;
+  dob: () => Promise<DateTimeOutput>;
+  address: () => Promise<String>;
   orders: <T = FragmentableArray<Order>>(args?: {
     where?: OrderWhereInput;
     orderBy?: OrderOrderByInput;
@@ -1899,6 +2061,8 @@ export interface OrderPreviousValues {
   createdFor: DateTimeOutput;
   delivered: Boolean;
   deliveredAt?: DateTimeOutput;
+  comments?: String;
+  feedback?: String;
 }
 
 export interface OrderPreviousValuesPromise
@@ -1909,6 +2073,8 @@ export interface OrderPreviousValuesPromise
   createdFor: () => Promise<DateTimeOutput>;
   delivered: () => Promise<Boolean>;
   deliveredAt: () => Promise<DateTimeOutput>;
+  comments: () => Promise<String>;
+  feedback: () => Promise<String>;
 }
 
 export interface OrderPreviousValuesSubscription
@@ -1919,6 +2085,8 @@ export interface OrderPreviousValuesSubscription
   createdFor: () => Promise<AsyncIterator<DateTimeOutput>>;
   delivered: () => Promise<AsyncIterator<Boolean>>;
   deliveredAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  comments: () => Promise<AsyncIterator<String>>;
+  feedback: () => Promise<AsyncIterator<String>>;
 }
 
 export interface ProteinSubscriptionPayload {
@@ -2050,6 +2218,9 @@ export interface UserPreviousValues {
   password: String;
   hasChangedPassword: Boolean;
   activated: Boolean;
+  phone: String;
+  dob: DateTimeOutput;
+  address: String;
 }
 
 export interface UserPreviousValuesPromise
@@ -2064,6 +2235,9 @@ export interface UserPreviousValuesPromise
   password: () => Promise<String>;
   hasChangedPassword: () => Promise<Boolean>;
   activated: () => Promise<Boolean>;
+  phone: () => Promise<String>;
+  dob: () => Promise<DateTimeOutput>;
+  address: () => Promise<String>;
 }
 
 export interface UserPreviousValuesSubscription
@@ -2078,6 +2252,9 @@ export interface UserPreviousValuesSubscription
   password: () => Promise<AsyncIterator<String>>;
   hasChangedPassword: () => Promise<AsyncIterator<Boolean>>;
   activated: () => Promise<AsyncIterator<Boolean>>;
+  phone: () => Promise<AsyncIterator<String>>;
+  dob: () => Promise<AsyncIterator<DateTimeOutput>>;
+  address: () => Promise<AsyncIterator<String>>;
 }
 
 /*
