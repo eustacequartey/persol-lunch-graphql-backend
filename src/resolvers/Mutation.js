@@ -138,6 +138,19 @@ const Mutation = {
       side: { connect: { id: args.data.side } },
       protein: { connect: { id: args.data.protein } },
       delivered: args.data.delivered || false,
+      comments: args.data.comments,
+    });
+  },
+
+  createFeedback: async (_, args, ctx) => {
+    let { user } = await Authorization(ctx);
+    if (!user) throw new Error("You must be authenticated");
+
+    return await ctx.prisma.updateOrder({
+      where: { id: order.id },
+      data: {
+        feedback: args.feedback,
+      },
     });
   },
 
@@ -152,7 +165,7 @@ const Mutation = {
     if (!order) throw new Error("No such order found");
     // const delivered = user.activated;
 
-    return await context.prisma.updateOrder({
+    return await ctx.prisma.updateOrder({
       where: { id: order.id },
       data: {
         delivered: true,

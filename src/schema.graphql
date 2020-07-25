@@ -19,6 +19,7 @@ type Mutation {
   createProtein(name: String!, type: ProteinType!): Protein!
   createOrder(data: createOrderInput!): Order!
   setDelivered(id: ID!): Order!
+  createFeedback(id: ID!, feedback: String!): Boolean!
 }
 
 type User {
@@ -88,6 +89,7 @@ input createOrderInput {
   side: ID!
   protein: ID!
   delivered: Boolean
+  comments: String
 }
 
 type AuthPayload {
