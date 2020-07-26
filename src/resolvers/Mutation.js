@@ -162,7 +162,7 @@ const Mutation = {
     let { admin } = await Authorization(ctx);
     if (!admin) throw new Error("Authorized persons only");
 
-    const order = await context.prisma.order({
+    const order = await ctx.prisma.order({
       id: args.id,
     });
 
