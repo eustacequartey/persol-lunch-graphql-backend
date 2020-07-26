@@ -177,7 +177,7 @@ const Mutation = {
       },
     });
 
-    ctx.pubsub.publish(`Order Delivered ${order.createdBy().id}`);
+    // ctx.pubsub.publish(`Order Delivered ${order.createdBy().id}`);
 
     return updatedOrder;
   },
