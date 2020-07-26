@@ -195,6 +195,7 @@ const Mutation = {
 
     const data = {
       delivered: true,
+      deliveredAt: moment().format(),
     };
 
     await ctx.prisma.updateManyOrders({
