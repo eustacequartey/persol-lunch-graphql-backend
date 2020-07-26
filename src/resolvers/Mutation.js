@@ -39,6 +39,8 @@ const Mutation = {
 
     let valid = false;
 
+    if (!user) throw new Error("Unauthorized");
+
     if (!user.activated) throw new Error("You are not an activated user");
 
     if (!user.hasChangedPassword) {
