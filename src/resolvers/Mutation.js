@@ -151,7 +151,7 @@ const Mutation = {
     if (!user) throw new Error("You must be authenticated");
 
     return await ctx.prisma.updateOrder({
-      where: { id: order.id },
+      where: { id: args.id },
       data: {
         feedback: args.feedback,
       },
