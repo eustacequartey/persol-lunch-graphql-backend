@@ -131,7 +131,7 @@ const Mutation = {
     let { user } = await Authorization(ctx);
     if (!user) throw new Error("You must be authenticated");
 
-    return await ctx.prisma.createOrder({
+    const order = await ctx.prisma.createOrder({
       createdFor: args.data.createdFor,
       createdBy: { connect: { id: user.id } },
       main: { connect: { id: args.data.main } },
@@ -140,6 +140,8 @@ const Mutation = {
       delivered: args.data.delivered || false,
       comments: args.data.comments,
     });
+
+    return order;
   },
 
   createFeedback: async (_, args, ctx) => {
@@ -155,7 +157,7 @@ const Mutation = {
   },
 
   setDelivered: async (_, args, ctx) => {
-    let { admin } = await Authorization(context);
+    let { admin } = await Authorization(ctx);
     if (!admin) throw new Error("Authorized persons only");
 
     const order = await context.prisma.order({
@@ -165,13 +167,42 @@ const Mutation = {
     if (!order) throw new Error("No such order found");
     // const delivered = user.activated;
 
-    return await ctx.prisma.updateOrder({
+    const updatedOrder = await ctx.prisma.updateOrder({
       where: { id: order.id },
       data: {
         delivered: true,
         deliveredAt: moment().format(),
       },
     });
+
+    ctx.pubsub.publish(`Order Delivered ${order.createdBy().id}`);
+
+    return updatedOrder;
+  },
+
+  setTodayDelivered: async (_, args, ctx) => {
+    let { admin } = await Authorization(ctx);
+    if (!admin) throw new Error("Authorized persons only");
+
+    const where = {
+      createdFor_gte: moment()
+        .startOf("day")
+        .format(),
+      createdFor_lte: moment()
+        .endOf("day")
+        .format(),
+    };
+
+    const data = {
+      delivered: true,
+    };
+
+    await ctx.prisma.updateManyOrders({
+      where,
+      data,
+    });
+
+    return true;
   },
 };
 

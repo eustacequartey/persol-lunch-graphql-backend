@@ -6,6 +6,7 @@ type Query {
   sidedishes: [SideDish!]!
   proteins: [Protein!]!
   orders: [Order!]!
+  orderBatch(date: String): [Order!]!
 }
 
 type Mutation {
@@ -19,7 +20,12 @@ type Mutation {
   createProtein(name: String!, type: ProteinType!): Protein!
   createOrder(data: createOrderInput!): Order!
   setDelivered(id: ID!): Order!
-  createFeedback(id: ID!, feedback: String!): Boolean!
+  createFeedback(id: ID!, feedback: String!): Order!
+  setTodayDelivered: Boolean!
+}
+
+type Subscription {
+  deliveredMeal: Order
 }
 
 type User {
